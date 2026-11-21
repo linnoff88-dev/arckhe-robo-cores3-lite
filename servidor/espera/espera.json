@@ -1,0 +1,226 @@
+[
+ {
+  "id": "frio-01",
+  "categoria": "frio",
+  "texto": "Opa, eu estava cochilando. Só um instante.",
+  "segundos": 3.68,
+  "voz": "rachel"
+ },
+ {
+  "id": "frio-02",
+  "categoria": "frio",
+  "texto": "Hum, acordando aqui. Já te respondo.",
+  "segundos": 3.95,
+  "voz": "rachel"
+ },
+ {
+  "id": "frio-03",
+  "categoria": "frio",
+  "texto": "Espera, deixa eu esfregar os olhos.",
+  "segundos": 2.77,
+  "voz": "rachel"
+ },
+ {
+  "id": "frio-04",
+  "categoria": "frio",
+  "texto": "Ligando os motores da cabeça, um momento.",
+  "segundos": 2.2,
+  "voz": "rachel"
+ },
+ {
+  "id": "hora-01",
+  "categoria": "hora",
+  "texto": "Deixa eu olhar o relógio.",
+  "segundos": 1.46,
+  "voz": "rachel"
+ },
+ {
+  "id": "hora-02",
+  "categoria": "hora",
+  "texto": "Um segundo, vou ver as horas.",
+  "segundos": 1.65,
+  "voz": "rachel"
+ },
+ {
+  "id": "hora-03",
+  "categoria": "hora",
+  "texto": "Deixa eu fazer a conta do fuso.",
+  "segundos": 3.23,
+  "voz": "rachel"
+ },
+ {
+  "id": "hora-04",
+  "categoria": "hora",
+  "texto": "Hum, que horas são mesmo? Já vejo.",
+  "segundos": 3.45,
+  "voz": "rachel"
+ },
+ {
+  "id": "foto-01",
+  "categoria": "foto",
+  "texto": "Deixa eu olhar direito.",
+  "segundos": 3.76,
+  "voz": "rachel"
+ },
+ {
+  "id": "foto-02",
+  "categoria": "foto",
+  "texto": "Hum, deixa eu ver o que tem aqui.",
+  "segundos": 1.9,
+  "voz": "rachel"
+ },
+ {
+  "id": "foto-03",
+  "categoria": "foto",
+  "texto": "Peraí, focando a câmera.",
+  "segundos": 1.5,
+  "voz": "rachel"
+ },
+ {
+  "id": "foto-04",
+  "categoria": "foto",
+  "texto": "Olhando com atenção.",
+  "segundos": 3.4,
+  "voz": "rachel"
+ },
+ {
+  "id": "foto-05",
+  "categoria": "foto",
+  "texto": "Deixa eu enxergar melhor.",
+  "segundos": 2.53,
+  "voz": "rachel"
+ },
+ {
+  "id": "conta-01",
+  "categoria": "conta",
+  "texto": "Calculando aqui.",
+  "segundos": 2.77,
+  "voz": "rachel"
+ },
+ {
+  "id": "conta-02",
+  "categoria": "conta",
+  "texto": "Deixa eu fazer essa conta.",
+  "segundos": 2.28,
+  "voz": "rachel"
+ },
+ {
+  "id": "conta-03",
+  "categoria": "conta",
+  "texto": "Hum, números. Só um instante.",
+  "segundos": 2.46,
+  "voz": "rachel"
+ },
+ {
+  "id": "conta-04",
+  "categoria": "conta",
+  "texto": "Somando tudo aqui.",
+  "segundos": 2.1,
+  "voz": "rachel"
+ },
+ {
+  "id": "dificil-01",
+  "categoria": "dificil",
+  "texto": "Boa pergunta, deixa eu pensar.",
+  "segundos": 1.67,
+  "voz": "rachel"
+ },
+ {
+  "id": "dificil-02",
+  "categoria": "dificil",
+  "texto": "Hum, essa é interessante.",
+  "segundos": 2.69,
+  "voz": "rachel"
+ },
+ {
+  "id": "dificil-03",
+  "categoria": "dificil",
+  "texto": "Deixa eu organizar as ideias.",
+  "segundos": 3.29,
+  "voz": "rachel"
+ },
+ {
+  "id": "dificil-04",
+  "categoria": "dificil",
+  "texto": "Pergunta boa. Pensando aqui.",
+  "segundos": 2.59,
+  "voz": "rachel"
+ },
+ {
+  "id": "dificil-05",
+  "categoria": "dificil",
+  "texto": "Essa merece uma boa resposta. Um instante.",
+  "segundos": 2.33,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-01",
+  "categoria": "geral",
+  "texto": "Hum, deixa eu ver.",
+  "segundos": 1.55,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-02",
+  "categoria": "geral",
+  "texto": "Só um instante.",
+  "segundos": 2.63,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-03",
+  "categoria": "geral",
+  "texto": "Pensando aqui.",
+  "segundos": 0.69,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-04",
+  "categoria": "geral",
+  "texto": "Um momento.",
+  "segundos": 1.73,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-05",
+  "categoria": "geral",
+  "texto": "Deixa comigo.",
+  "segundos": 0.74,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-06",
+  "categoria": "geral",
+  "texto": "Já te digo.",
+  "segundos": 0.68,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-07",
+  "categoria": "geral",
+  "texto": "Hum.",
+  "segundos": 1.33,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-08",
+  "categoria": "geral",
+  "texto": "Entendi. Um segundo.",
+  "segundos": 3.12,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-09",
+  "categoria": "geral",
+  "texto": "Certo, deixa eu pensar.",
+  "segundos": 2.6,
+  "voz": "rachel"
+ },
+ {
+  "id": "geral-10",
+  "categoria": "geral",
+  "texto": "Tá bom, já respondo.",
+  "segundos": 3.48,
+  "voz": "rachel"
+ }
+]

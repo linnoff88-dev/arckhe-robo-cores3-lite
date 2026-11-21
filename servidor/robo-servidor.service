@@ -1,0 +1,21 @@
+[Unit]
+Description=robo-cores3-lite: servidor de voz do robô (porta 8770; Whisper e voz residentes, claude -p pela assinatura)
+Documentation=file:///home/nmaldaner/projetos/robo-cores3-lite/servidor/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/nmaldaner/projetos/robo-cores3-lite
+ExecStart=/usr/bin/python3 servidor/servidor.py
+# claude fica em ~/.local/bin; o servidor lê o token de servidor/.env
+Environment=PATH=/home/nmaldaner/.local/bin:/home/nmaldaner/.npm-global/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+RestartSec=15
+# sobe o Whisper e a voz residentes antes de escutar
+TimeoutStartSec=180
+KillMode=mixed
+
+[Install]
+WantedBy=default.target

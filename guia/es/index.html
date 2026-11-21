@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robot CoreS3 Lite — un robot de escritorio que conversa, con el cerebro en tu computadora</title>
+<meta name="description" content="Robot de escritorio con la placa lista M5Stack CoreS3 Lite: escucha, responde con voz, muestra subtítulos y entiende fotos. El cerebro funciona en tu computadora (Whisper, Claude con tu suscripción y voz local), sin API de pago. Servidor listo y medido; la placa todavía está en camino.">
+<meta property="og:title" content="Robot CoreS3 Lite — un robot de escritorio que conversa">
+<meta property="og:description" content="Una placa lista en tu escritorio, el cerebro en tu computadora: escucha, habla, muestra subtítulos y entiende fotos, sin API de pago.">
+<meta property="og:image" content="https://inematds.github.io/robo-cores3-lite/guia/assets/banner-es.jpg">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/robo-cores3-lite/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/robo-cores3-lite/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/robo-cores3-lite/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#FACC15; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    --ok:#7CE0C6; --warm:#F2B45C; --bad:#F0918A;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#a16207; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    --ok:#0E6B55; --warm:#8F520A; --bad:#A83426;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  body.light pre .k{color:#f0c070}
+  body.light .btn{background:#FACC15}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  body.light nav{background:rgba(246,247,249,.85)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(250,204,21,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:900px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(250,204,21,.16),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.3rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.15rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:44ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  .resumo figure{margin:28px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+  .resumo figure img{width:100%;display:block}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:66ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.95rem;margin:0}
+  .card p+p{margin-top:.6em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .techzone .flow span{background:var(--card)}
+  .flow .arr{color:var(--amb);border:none;background:none !important;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere;font-size:.88em}
+  .step .b{width:46px;height:46px;border-radius:12px;background:#FACC15;color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.95rem}
+  .st{display:inline-block;font-family:Sora;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.2em .6em;border-radius:999px;border:1px solid currentColor;margin-bottom:.6em}
+  .st.ok{color:var(--ok)} .st.meio{color:var(--warm)} .st.papel{color:var(--mut)}
+  .tbl{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table{border-collapse:collapse;width:100%;font-size:.93rem;min-width:520px}
+  th,td{text-align:left;padding:.7em .9em;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:Sora;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);background:var(--bg2)}
+  .techzone th{background:var(--card)}
+  tr:last-child td{border-bottom:none}
+  .big{font-family:Sora;font-weight:800;font-size:2rem;color:var(--amb);line-height:1}
+  .nota{border-left:3px solid var(--amb);padding:.8em 1em;background:var(--card);border-radius:0 12px 12px 0;color:var(--txt);max-width:74ch;margin-top:1.6em}
+  .techhead{background:var(--bg2);border-top:3px solid var(--amb);padding:58px 0 8px}
+  .techhead h2{font-family:Sora;font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;margin:.3em 0 0}
+  .techhead .sub{color:var(--mut);margin:.6em 0 1em;max-width:66ch}
+  .techzone{background:var(--bg2)}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:4px}
+  .poderes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 6px}
+  .poderes div{border:1px solid var(--amb);border-radius:12px;padding:10px 12px;background:rgba(250,204,21,.07)}
+  .poderes b{display:block;font-family:Sora;font-size:1.15rem;color:var(--amb);letter-spacing:-.01em}
+  .poderes span{font-size:.82rem;color:var(--mut);line-height:1.35}
+  @media (max-width:640px){.poderes{grid-template-columns:repeat(2,1fr)}}
+  .corpos .corpo{padding:0;overflow:hidden}
+  .corpos .corpo img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+  .corpos .corpo h3,.corpos .corpo p{padding:0 18px}
+  .corpos .corpo h3{margin-top:14px}
+  .corpos .corpo p{padding-bottom:18px}
+  .cuidados{margin:18px 0 22px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🤖</span> Robot CoreS3 Lite</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#ideia">La idea</a>
+    <a class="sec" href="#hoje">Lo que existe hoy</a>
+    <a class="sec" href="#espera">La espera</a>
+    <a class="sec" href="#opcoes">Dos opciones</a>
+    <a class="sec" href="#corpos">Otros cuerpos</a>
+    <a class="sec" href="#tecnico">Kit (técnico)</a>
+    <span class="lang"><a href="../">PT</a><a href="../en/">EN</a><a class="on" href="./">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/robo-cores3-lite" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Robot de escritorio · servidor en casa</span>
+      <h1>Un robot en tu escritorio que <span class="amb">conversa</span> contigo, sin pagar una API por cada pregunta</h1>
+      <div class="poderes" aria-label="Hace cuatro cosas">
+        <div><b>Oye</b><span>dos micrófonos: mantén el dedo en la pantalla y habla</span></div>
+        <div><b>Habla</b><span>responde con voz, por partes, sin silencios largos</span></div>
+        <div><b>Ve</b><span>cámara: pregunta “¿qué estás viendo?”</span></div>
+        <div><b>Muestra</b><span>una cara y subtítulos en la pantalla táctil de 2"</span></div>
+      </div>
+      <p class="lead">Quieres conversar con una máquina sin pagar una API por cada pregunta y sin que la grabación de tu voz salga de casa. El <strong>Robot CoreS3 Lite</strong> usa una placa lista de R$ 256 (reales brasileños; precio de lista US$ 44,90) para escuchar y hablar; un servidor en tu PC transcribe y genera la voz ahí mismo y le pide la respuesta a Claude con tu suscripción (la mensual, que ya pagas). Hoy el servidor está listo y medido; la placa todavía no llegó.</p>
+      <div class="cta">
+        <a class="btn" href="#ideia">Entiéndelo en 5 minutos</a>
+        <a class="btn ghost" href="https://github.com/inematds/robo-cores3-lite" target="_blank" rel="noopener">Ver en GitHub</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-es.jpg" alt="Banner: robot que conversa. Una placa lista en el escritorio, el cerebro en tu computadora"><figcaption style="padding:10px 14px;font-size:.85rem;color:var(--mut);background:var(--card)">Ilustración. La placa todavía no llegó: hoy quien escucha, responde y ve la foto es el servidor, probado con grabaciones.</figcaption></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">En resumen</span>
+  <p>Este es un proyecto abierto para armar un robot de escritorio que conversa por voz: mantienes el dedo sobre la pantalla, hablas y te responde en voz alta, con el texto en pantalla, y puede mirar por la cámara. El cuerpo es una placa lista, la M5Stack CoreS3 Lite (un cuadrado de 5 cm con pantalla, cámara, micrófonos y parlante, sin soldaduras). El «cerebro» pasa por tu computadora: transcribe y genera la voz ahí mismo y le pide la respuesta a Claude con tu suscripción, sin pagar por cada pregunta. Hoy ese servidor está listo y medido; la placa todavía no llegó, así que el robot completo aún no se ha probado.</p>
+  <figure><img src="../assets/banner-grade-es.jpg" alt="Banner con seis tarjetas: placa lista sin soldaduras, escucha y responde con voz, subtítulos en pantalla, entiende fotos con la cámara, cerebro en tu computadora, código abierto" loading="lazy"><figcaption style="padding:10px 14px;font-size:.85rem;color:var(--mut);background:var(--card)">Arte ilustrativo.</figcaption></figure>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <span class="chip">En video</span>
+  <h2>El robot de escritorio en 1 minuto</h2>
+  <p class="mut">Nei muestra la placa, el servidor en tu computadora y lo que ya funciona hoy.</p>
+  <div style="max-width:360px;margin:18px auto 0;aspect-ratio:9/16;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000">
+    <iframe src="https://www.youtube.com/embed/ckhcNbClXNs" title="Video del robot de escritorio CoreS3 Lite en YouTube" style="width:100%;height:100%;border:0;display:block" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  <p class="mut" style="text-align:center;font-size:.85rem;margin-top:10px"><a class="amb" href="https://www.youtube.com/watch?v=ckhcNbClXNs">youtube.com/watch?v=ckhcNbClXNs</a></p>
+</div></section>
+
+<section id="ideia"><div class="wrap">
+  <span class="chip">La idea</span>
+  <h2>Una cajita que escucha, habla y ve. Tu voz no sale de casa.</h2>
+  <p class="sub">Entender el habla, pensar la respuesta y generar la voz requiere modelos grandes y una tarjeta gráfica. Una placa de R$ 256 no puede hacerlo sola. Por eso el trabajo se dividió en dos partes.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🖐️ El cuerpo, en el escritorio</h3><p>La placa graba lo que dices mientras mantienes el dedo sobre la pantalla (hasta 15 segundos), lo envía por Wi-Fi y reproduce la respuesta. Muestra una cara sencilla y los subtítulos. No camina ni gira: es de escritorio.</p></div>
+    <div class="card"><h3>🧠 El cerebro, en tu PC y en Claude</h3><p>Un programa en tu computadora escucha la grabación (Whisper, que convierte el habla en texto), le pide la respuesta a Claude y genera la voz con un modelo local (Chatterbox). El audio no sale de la PC. El texto de la pregunta y la foto se envían a Claude con tu suscripción de Claude (plan mensual, sin cobro por pregunta).</p></div>
+    <div class="card"><h3>📷 Los ojos, a través de fotos</h3><p>Cuando la pregunta requiere visión («¿qué estás viendo?»), la placa toma una foto y la envía junto con la pregunta. Claude describe lo que aparece en ella. Esto ya se probó en el cerebro con una foto de prueba.</p></div>
+  </div>
+  <p class="nota"><strong>Seguro desde el diseño:</strong> al cerebro le llega lo que diga cualquier persona cerca del robot. Por eso Claude funciona sin ninguna herramienta: solo escribe texto; no modifica archivos ni ejecuta nada en tu computadora. Además, el robot necesita una contraseña (token) para que el servidor acepte el audio.</p>
+</div></section>
+
+<section id="hoje"><div class="wrap">
+  <span class="chip">Lo que existe hoy</span>
+  <h2>Qué está listo, qué está a medias y qué solo existe en el papel</h2>
+  <p class="sub">Situación al 15/11/2026. Sin promesas: solo lo que se hizo y se midió.</p>
+  <div class="grid g3">
+    <div class="card"><span class="st ok">✓ Listo</span><h3>El servidor en casa</h3><p>El servidor recibe la grabación, la transcribe, responde y devuelve la voz. Pasó las 10 pruebas de la fase 1: formato del audio, volumen, texto, contraseña, límites de tamaño, silencio y foto.</p></div>
+    <div class="card"><span class="st meio">◐ Esqueleto</span><h3>El programa de la placa</h3><p>Compila para la CoreS3 y solo muestra la memoria por el puerto serial. La cara, la grabación y el habla todavía no están implementadas: dependen de que llegue la placa.</p></div>
+    <div class="card"><span class="st papel">○ Solo en el papel</span><h3>La opción directa a la API</h3><p>Conectar la placa directamente a un servicio de voz en tiempo real (Gemini Live u OpenAI Realtime). Está diseñada, pero no se hizo ni programó ninguna llamada.</p></div>
+  </div>
+  <p class="nota"><strong>Lo que puedes hacer hoy, sin la placa:</strong> con una PC Linux con una tarjeta gráfica NVIDIA (más de 8 GB de memoria de video) y una suscripción de pago a Claude, el servidor ya responde a grabaciones y fotos desde la terminal. <strong>Idioma:</strong> el robot conversa solo en portugués de Brasil; la transcripción, la voz y las instrucciones están configuradas para pt-BR. Los scripts de prueba también muestran los resultados en portugués (PASSOU = aprobado, FALHOU = fallido).</p>
+</div></section>
+
+<section id="espera"><div class="wrap">
+  <span class="chip">La espera</span>
+  <h2>Cuánto tarda en responder</h2>
+  <p class="sub">Medido en el cerebro local, con una grabación de prueba («¿qué hora es en Tokio?»), sin la placa. Los números están en el repositorio.</p>
+  <div class="grid g3">
+    <div class="card"><div class="big">6,8–7,6 s</div><p>desde que se envía la voz hasta el primer sonido de la respuesta, con los modelos ya cargados (seis mediciones). La respuesta sale por partes: la primera frase se reproduce mientras se generan las demás.</p></div>
+    <div class="card"><div class="big">~0,6 s</div><p>hasta una frase breve para ganar tiempo («déjame mirar el reloj…»), grabada de antemano con la voz del robot, que cubre el silencio. Nunca repite una de las últimas 8 y a veces se queda callado a propósito.</p></div>
+    <div class="card"><div class="big">19 s</div><p>en la primera pregunta después de 10 minutos sin actividad, contando desde que tocas la pantalla. Los modelos salen de la memoria cuando nadie habla y vuelven cuando apoyas el dedo.</p></div>
+  </div>
+  <p class="nota">No es instantáneo como un asistente en la nube. El mínimo medido es de unos 7 segundos: la voz tarda cerca de 3 s incluso para una frase corta y Claude tarda otros 3 s. Para reducirlo, hay que cambiar la voz o pasar a la opción directa a la API.</p>
+</div></section>
+
+<section id="opcoes"><div class="wrap">
+  <span class="chip">Dos opciones</span>
+  <h2>Servidor en casa o API en la nube</h2>
+  <p class="sub">El mismo robot puede usar cualquiera de las dos. La opción B es la predeterminada y la que existe.</p>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>B · servidor local (lista)</th><th>A · directa a la API (solo diseño)</th></tr></thead>
+    <tbody>
+      <tr><td>Tiempo hasta el primer sonido</td><td>6,8 a 7,6 s, medido</td><td>cerca de 1 s, estimado, no medido</td></tr>
+      <tr><td>Costo por conversación</td><td>nada aparte de la suscripción de Claude que ya tienes y la PC encendida</td><td>pago por uso</td></tr>
+      <tr><td>Qué sale de casa</td><td>el texto de la pregunta y la foto (para Claude); el audio se queda en la PC</td><td>el audio y la imagen (para el servicio elegido)</td></tr>
+      <tr><td>Fuera de casa</td><td>solo con la computadora encendida</td><td>funciona con cualquier Wi-Fi</td></tr>
+      <tr><td>Visión</td><td>una foto por pregunta</td><td>pocos cuadros por segundo (Gemini Live)</td></tr>
+      <tr><td>Interrumpir al robot</td><td colspan="2">solo tocando la pantalla: en esta placa, el micrófono y el parlante no funcionan al mismo tiempo</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section id="corpos"><div class="wrap">
+  <span class="chip">Ideas · cuerpos de otros robots</span>
+  <h2>¿Y si tuviera un cuerpo?</h2>
+  <p class="sub">La CoreS3 Lite puede ser la cabeza y el rostro de un robot que camina, gira o realiza tareas: escucha, habla, ve y muestra; la IA entiende y decide; el cuerpo se mueve y cuida su propia seguridad. <strong>Son ideas: nada de esto se ha construido.</strong> Las imágenes son ilustraciones.</p>
+  <div class="flow"><span>Tú hablas</span><span>→ Cabeza: escucha, ve, muestra</span><span>→ Cerebro en la PC: entiende y elige un comando</span><span>→ Cuerpo: camina, gira, agarra</span></div>
+  <div class="grid g3 cuidados">
+    <div class="card"><h3>Lista cerrada de comandos</h3><p>La IA solo elige entre acciones conocidas, con un límite (caminar como máximo 50 cm por vez). El servidor descarta el resto. El habla nunca se convierte en código.</p></div>
+    <div class="card"><h3>Freno en el cuerpo, no en la IA</h3><p>La respuesta tarda unos 7 s. Quien se detiene antes de chocar es el sensor de distancia del propio kit, en milisegundos.</p></div>
+    <div class="card"><h3>Energía del cuerpo</h3><p>La batería de la placa es pequeña. La cabeza se alimenta de la batería del kit, por el USB-C.</p></div>
+  </div>
+  <div class="grid g3 corpos">
+    <div class="card corpo"><img src="../assets/corpos/humanoide.jpg" alt="Humanoide pequeño de servos con la CoreS3 Lite como cabeza" loading="lazy"><h3>1. Humanoide de taller</h3><p>“Saluda a la visita.” La IA elige un gesto grabado (saludar, señalar, bailar) y habla al mismo tiempo. Ideal para clases y presentaciones.</p></div>
+    <div class="card corpo"><img src="../assets/corpos/carrinho.jpg" alt="Carrito de cuatro ruedas con la CoreS3 Lite en un mástil" loading="lazy"><h3>2. Carrito que te sigue</h3><p>“Ven conmigo.” La placa sigue tu rostro; la IA elige el rumbo mediante fotos; el carrito frena solo. Lo más fácil para empezar.</p></div>
+    <div class="card corpo"><img src="../assets/corpos/cao.jpg" alt="Perro robot cuadrúpedo con la CoreS3 Lite como cabeza" loading="lazy"><h3>3. Perro robot</h3><p>“Siéntate.” “Dame la pata.” El kit ya sabe caminar; la cabeza reconoce a su dueño y le da voz al personaje. El que más encanta a los niños.</p></div>
+    <div class="card corpo"><img src="../assets/corpos/braco.jpg" alt="Brazo robótico de mesa sosteniendo un bolígrafo, con la CoreS3 Lite en la base" loading="lazy"><h3>4. Brazo que ayuda en la mesa</h3><p>“Pásame el bolígrafo azul.” La IA encuentra el bolígrafo en la foto y el brazo lo agarra. La tarea física más útil y la más difícil: requiere calibrar la cámara y el brazo.</p></div>
+    <div class="card corpo"><img src="../assets/corpos/giratoria.jpg" alt="Base giratoria de dos servos con la CoreS3 Lite en la parte superior" loading="lazy"><h3>5. Cabeza que gira hacia quien habla</h3><p>Dos servos: la placa encuentra el rostro y la base gira para mirarte. El primer paso más barato y seguro.</p></div>
+    <div class="card corpo"><img src="../assets/corpos/jardim.jpg" alt="Carrito de jardín con depósito de agua y la CoreS3 Lite en un mástil" loading="lazy"><h3>6. Jardinero de balcón</h3><p>“Riega la albahaca.” La IA ve qué maceta está seca; el carrito va hasta ella y enciende la bomba durante unos segundos.</p></div>
+  </div>
+  <p class="sub" style="margin-top:18px">Orden sugerido: 5 → 2 → 3 o 1 → 4 o 6. Texto completo, con el dibujo de cada uno, en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/IDEIAS-CORPOS.md" target="_blank" rel="noopener">IDEIAS-CORPOS.md</a>.</p>
+</div></section>
+
+
+<div id="tecnico" class="techhead"><div class="wrap">
+  <span class="chip">Parte técnica</span>
+  <h2>El kit: <span class="amb">para quienes quieren armar el suyo</span></h2>
+  <p class="sub">A partir de aquí viene la parte técnica: la placa, el servidor, los comandos y los números. <strong>No necesitas</strong> esta parte para entender lo anterior.</p>
+</div></div>
+
+<div class="techzone">
+
+<section id="oque"><div class="wrap">
+  <span class="chip">Qué es</span>
+  <h2>La placa, el servidor y el protocolo entre ambos</h2>
+  <p class="sub">Todo está en el repositorio, en portugués: definición, plan por fases con criterios de finalización, preguntas frecuentes y mediciones.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🟨 M5Stack CoreS3 Lite</h3><p>ESP32-S3, 16 MB de flash y 8 MB de PSRAM; pantalla táctil de 2" (320 × 240); cámara GC0308 de 0,3 MP; dos micrófonos; parlante de 1 W; batería de 200 mAh. 54 × 54 × 16,5 mm, 54 g.</p><p>R$ 256,55 en la tienda oficial M5Stack de AliExpress, consultado el 15/11/2026, sin envío ni impuestos. Atención: la «CoreS3 SE» no tiene cámara.</p></div>
+    <div class="card"><h3>🖥️ Servidor de la opción B</h3><p><code>servidor/servidor.py</code>, puerto 8770, solo biblioteca estándar de Python. Escucha en la red de casa (para que la placa se conecte) y solo acepta solicitudes con contraseña (token). Los servicios que invoca (Whisper y voz) funcionan únicamente en la propia máquina (127.0.0.1). Whisper large-v3 y la voz permanecen cargados mientras hay una conversación y se descargan solos después de 10 minutos sin actividad.</p></div>
+    <div class="card"><h3>🔁 Protocolo sencillo</h3><p>HTTP, una solicitud por turno. La ruta principal, <code>/v1/conversa</code>, devuelve la respuesta en partes: lo que escuchó, la frase para ganar tiempo y cada fragmento de texto con su audio WAV de 16 kHz. La descripción completa está en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/DEFINICAO.md" target="_blank" rel="noopener">DEFINICAO.md</a> (en portugués), sección 11.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Cómo funciona</span>
+  <h2>Un turno de conversación, desde el dedo en la pantalla hasta la voz</h2>
+  <p class="sub">Conversación por turnos: el robot escucha o habla. Si tocas la pantalla mientras habla, se detiene.</p>
+  <div class="flow">
+    <span>Dedo en la pantalla</span><span class="arr">→</span>
+    <span>/v1/aquecer</span><span class="arr">→</span>
+    <span>Graba hasta 15 s</span><span class="arr">→</span>
+    <span>(foto opcional)</span><span class="arr">→</span>
+    <span>/v1/conversa</span><span class="arr">→</span>
+    <span>Filtro de silencio</span><span class="arr">→</span>
+    <span>Whisper</span><span class="arr">→</span>
+    <span>Claude (claude -p) sin herramientas</span><span class="arr">→</span>
+    <span>Chatterbox</span><span class="arr">→</span>
+    <span>Reproduce y muestra los subtítulos</span>
+  </div>
+  <p class="nota">Si no hay habla o el volumen promedio está por debajo de −50 dB, el servidor responde «no entendí» (código HTTP 204) antes de invocar Whisper, que suele inventar texto cuando hay silencio. La fecha y la hora se incluyen en la solicitud, y las instrucciones de personalidad del robot (su «persona») le indican que escriba los números con palabras para que la voz no lea «2026» como «2006».</p>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Requisitos</span>
+  <h2>Qué necesitas en la computadora</h2>
+  <p class="sub">El cerebro necesita una computadora con Linux y una tarjeta gráfica NVIDIA. inemavox requiere al menos unos 8 GB de memoria de video; aquí Whisper large-v3 y Chatterbox permanecen cargados al mismo tiempo, así que necesitarás más (el consumo de este proyecto no se midió). Se creó y probó en una sola máquina, la del autor; las rutas de abajo son las que busca el servidor. Puedes cambiar el Python del entorno (<code>CONDA_PY</code>) y la voz (<code>VOZ_REF</code>) en <code>servidor/.env</code>; la carpeta de inemavox no: debe ser exactamente <code>~/projetos/inemavox</code>.</p>
+  <div class="grid g2">
+    <div class="card"><h3>inemavox</h3><p>Proyecto abierto de voz de INEMA. El servidor usa un solo archivo suyo, <code>whisper_daemon.py</code>, y lo busca en una ruta fija: clona el repositorio exactamente en <code>~/projetos/inemavox</code>, con ese nombre de carpeta.</p><pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/inemavox</span> ~/projetos/inemavox</pre></div>
+    <div class="card"><h3>Entorno Python «chatterbox»</h3><p>Un entorno de conda (instala Miniconda antes: es el administrador de entornos de Python) con torch, Whisper y Chatterbox. El servidor busca Python en <code>~/miniconda3/envs/chatterbox/bin/python3</code>; si está en otro lugar, pon <code>CONDA_PY=&lt;ruta&gt;</code> en <code>servidor/.env</code>. El repositorio no incluye instrucciones listas para usar: los comandos de abajo instalan los paquetes que importan ambos servicios y descargan los modelos antes (varios GB), pero no se probaron en una máquina limpia.</p><pre><span class="k">conda create</span> -n chatterbox python=3.11 -y
+<span class="k">conda run</span> -n chatterbox pip install chatterbox-tts openai-whisper soundfile
+<span class="c"># descarga los modelos antes (el servidor espera como máximo 120 s a que cada uno inicie)</span>
+<span class="k">conda run</span> -n chatterbox python -c <span class="s">"import whisper; whisper.load_model('large-v3')"</span>
+<span class="k">conda run</span> -n chatterbox python -c <span class="s">"from chatterbox.mtl_tts import ChatterboxMultilingualTTS as C; C.from_pretrained(device='cuda')"</span></pre></div>
+    <div class="card"><h3>Claude Code con suscripción</h3><p>El comando <code>claude</code> (Claude Code, el asistente de terminal de Anthropic) con una sesión iniciada en una suscripción paga de Claude. El servidor lo ejecuta en modo no interactivo (<code>claude -p</code>) y sin clave de API.</p><pre><span class="k">claude</span> --version</pre></div>
+    <div class="card"><h3>Python 3 y ffmpeg</h3><p>El servidor en sí no instala nada: usa solo la biblioteca estándar. ffmpeg mide el volumen y convierte el audio.</p><pre><span class="k">python3</span> --version && <span class="k">ffmpeg</span> -version | head -1</pre></div>
+    <div class="card"><h3>Una voz de referencia</h3><p>Un archivo WAV corto (unos 10 segundos de habla clara) con la voz que imitará el robot. <code>env.exemplo</code> apunta a un archivo de la máquina del autor: cambia <code>VOZ_REF</code> por la tuya.</p><pre><span class="c"># en servidor/.env</span>
+VOZ_REF=<span class="s">~/ruta/a/tu-voz.wav</span></pre></div>
+    <div class="card"><h3>Para la placa: arduino-cli</h3><p>La herramienta de línea de comandos de Arduino, con el paquete de placas <code>esp32:esp32</code> 3.3.12 de Espressif, que ya incluye la definición de CoreS3 y la biblioteca de la cámara. El paquete no está en el índice predeterminado: primero agrega la dirección de Espressif.</p><pre><span class="c"># instala arduino-cli en ~/bin (instalador oficial)</span>
+<span class="k">curl</span> -fsSL <span class="s">https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh</span> | BINDIR=~/bin sh
+<span class="k">arduino-cli config add</span> board_manager.additional_urls <span class="s">https://espressif.github.io/arduino-esp32/package_esp32_index.json</span>
+<span class="k">arduino-cli core update-index</span>
+<span class="k">arduino-cli core install</span> esp32:esp32@3.3.12</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guía de uso · paso a paso</span>
+  <h2>Desde cero hasta tener el servidor respondiendo</h2>
+  <p class="sub">Los pasos 1 a 5 funcionan hoy, sin la placa. Los pasos 6 y 7 compilan y graban el firmware, que por ahora es solo un esqueleto.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Descargar el proyecto</h3>
+    <p>Todo queda en la carpeta del repositorio.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/robo-cores3-lite</span>
+<span class="k">cd</span> robo-cores3-lite</pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Crear la configuración y la contraseña</h3>
+    <p>Cambia <code>ROBO_TOKEN</code> por un texto largo (16 caracteres o más) y configura <code>VOZ_REF</code> para que apunte a tu voz de referencia. El archivo <code>.env</code> queda fuera de git.</p>
+<pre><span class="k">cp</span> servidor/env.exemplo servidor/.env
+<span class="k">nano</span> servidor/.env   <span class="c"># ROBO_TOKEN y VOZ_REF</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Iniciar el servidor</h3>
+    <p>Queda escuchando en el puerto 8770 de la red de casa (si hay un firewall, abre ese puerto para que se conecte la placa). En la primera pregunta, inicia Whisper y la voz; después de 10 minutos sin actividad, se descargan de la memoria automáticamente. Si algo falla, los errores quedan en <code>servidor/dados/whisper.log</code> y <code>servidor/dados/voz.log</code>.</p>
+<pre><span class="k">python3</span> servidor/servidor.py</pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Probar los límites y hacer una pregunta, sin el robot</h3>
+    <p>En otra terminal. El primer comando verifica la contraseña incorrecta, un archivo grande, el silencio y el formato; el segundo envía la grabación de prueba y termina con <code>PASSOU</code>, mostrando lo que escuchó, la respuesta y los tiempos.</p>
+<pre><span class="k">python3</span> servidor/testar.py --limites
+<span class="k">python3</span> servidor/testar.py servidor/teste/pergunta.wav</pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Probar la foto y la respuesta por partes</h3>
+    <p>La foto de prueba se envía junto con «¿qué estás viendo?». <code>--conversa</code> usa la ruta que usará el robot y mide el tiempo hasta el primer sonido; con <code>--frio</code>, apaga los modelos antes para medir el peor caso.</p>
+<pre><span class="k">python3</span> servidor/testar.py --foto servidor/teste/foto.jpg servidor/teste/pergunta-visao.wav
+<span class="k">python3</span> servidor/testar.py --conversa servidor/teste/pergunta.wav
+<span class="k">python3</span> servidor/testar.py --conversa --frio servidor/teste/pergunta.wav</pre>
+    <p>Las 32 frases para ganar tiempo ya están grabadas en <code>servidor/espera/</code>. Si cambias la voz, vuelve a grabarlas con <code>python3 servidor/gerar_espera.py</code>.</p>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Completar los secretos de la placa y compilar</h3>
+    <p>En <code>segredos.h</code>, completa <code>WIFI_NOME</code>, <code>WIFI_SENHA</code>, <code>SERVIDOR_URL</code> (la IP de tu PC en la red, que muestra <code>hostname -I</code>, con <code>:8770</code>) y el mismo <code>ROBO_TOKEN</code> del servidor. Hoy el firmware es un esqueleto: compila y muestra por el puerto serial el tamaño de la PSRAM (la memoria extra de la placa).</p>
+<pre><span class="k">cp</span> firmware/robo_fala/segredos.exemplo.h firmware/robo_fala/segredos.h
+<span class="k">arduino-cli compile</span> --fqbn esp32:esp32:m5stack_cores3 firmware/robo_fala</pre>
+  </div></div>
+
+  <div class="step"><div class="b">7</div><div>
+    <h3>Grabar en la placa (todavía no se probó)</h3>
+    <p>Cuando llegue la placa, conéctala por USB-C (<code>arduino-cli board list</code> muestra el puerto). Si la consola serial muestra <code>PSRAM: 0</code> (no se reconoció la memoria extra de la placa), vuelve a compilar con <code>:PSRAM=opi</code> al final del nombre de la placa (el FQBN). En Linux, tu usuario debe estar en el grupo <code>dialout</code> para cargar por el puerto USB.</p>
+<pre><span class="k">sudo usermod</span> -aG dialout $USER   <span class="c"># una vez; cierra sesión y vuelve a iniciarla</span>
+<span class="k">arduino-cli upload</span> --fqbn esp32:esp32:m5stack_cores3 -p /dev/ttyACM0 firmware/robo_fala
+<span class="k">arduino-cli monitor</span> -p /dev/ttyACM0 -c baudrate=115200</pre>
+  </div></div>
+</div></section>
+
+<section id="numeros"><div class="wrap">
+  <span class="chip">Números</span>
+  <h2>Tiempos medidos el 15/11/2026</h2>
+  <p class="sub">En segundos, en el cerebro local, con la grabación de prueba. stt = transcripción, llm = Claude, tts = voz; «caliente» = modelos ya cargados, «fría» = modelos fuera de la memoria. Tabla completa en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/servidor/MEDIDAS.md" target="_blank" rel="noopener">servidor/MEDIDAS.md</a> (en portugués).</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Prueba</th><th>Foto</th><th>stt</th><th>llm</th><th>tts</th><th>Total</th><th>1.er sonido</th></tr></thead>
+    <tbody>
+      <tr><td>conversación, caliente</td><td>no</td><td>0,52</td><td>4,69</td><td>8,45</td><td>13,72</td><td>7,26</td></tr>
+      <tr><td>conversación, caliente</td><td>no</td><td>0,53</td><td>4,90</td><td>5,54</td><td>11,01</td><td>7,57</td></tr>
+      <tr><td>conversación, caliente</td><td>sí</td><td>0,42</td><td>3,68</td><td>7,96</td><td>12,12</td><td>6,88</td></tr>
+      <tr><td>conversación, caliente</td><td>no</td><td>0,49</td><td>3,30</td><td>6,04</td><td>9,89</td><td>6,79</td></tr>
+      <tr><td>conversación, caliente</td><td>sí</td><td>0,43</td><td>4,81</td><td>9,08</td><td>14,37</td><td>7,37</td></tr>
+      <tr><td>conversación, caliente</td><td>sí</td><td>0,42</td><td>4,10</td><td>8,86</td><td>13,41</td><td>7,36</td></tr>
+      <tr><td>conversación, fría</td><td>no</td><td>7,48</td><td>4,75</td><td>9,88</td><td>22,15</td><td>15,79</td></tr>
+    </tbody>
+  </table></div>
+  <p class="nota">«1.er sonido» cuenta desde que se envía la grabación. En el caso frío, con el calentamiento iniciado al tocar la pantalla y 3,6 s de habla, son 19,4 s desde que tocas la pantalla. Antes de la respuesta por partes, la respuesta completa tardaba de 10 a 14 s.</p>
+  <p class="mut" style="font-size:.9rem;margin-top:1em">En el celular, desliza las tablas hacia un lado.</p>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Hoja de ruta</span>
+  <h2>Las fases, cada una con criterios de finalización</h2>
+  <p class="sub">El plan completo, con el comando que verifica cada criterio, está en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/PLANO.md" target="_blank" rel="noopener">PLANO.md</a> (en portugués).</p>
+  <div class="phase"><div class="tag">F0</div><div class="d"><strong>Comprar la placa</strong><span>En curso: la CoreS3 Lite todavía no llegó.</span></div></div>
+  <div class="phase"><div class="tag">F1 ✓</div><div class="d"><strong>El servidor local responde, con y sin foto</strong><span>Lista el 15/11/2026: se aprobaron los 10 criterios.</span></div></div>
+  <div class="phase"><div class="tag">F1b ✓</div><div class="d"><strong>Hacer más llevadera la espera</strong><span>Listo: respuesta por partes, calentamiento al tocar la pantalla y 32 frases para ganar tiempo sin repetir.</span></div></div>
+  <div class="phase"><div class="tag">F2</div><div class="d"><strong>El robot conversa con la opción B</strong><span>Rostro, mantener presionado para hablar, reproducir los fragmentos y subtítulos. Necesita la placa.</span></div></div>
+  <div class="phase"><div class="tag">F3</div><div class="d"><strong>Opción A, conexión directa a una API</strong><span>Solo después de autorizar el servicio y la finalidad. No hay nada implementado.</span></div></div>
+  <div class="phase"><div class="tag">F4</div><div class="d"><strong>Visión</strong><span>Foto incluida en la pregunta con la placa; «video» en pocos cuadros, solo con la opción A.</span></div></div>
+  <div class="phase"><div class="tag">F5 ✓</div><div class="d"><strong>Guía y publicación</strong><span>Esta página está disponible en portugués, inglés y español (15/11/2026).</span></div></div>
+  <div class="phase"><div class="tag">F6</div><div class="d"><strong>Opcionales</strong><span>Soporte de escritorio impreso, palabra de activación, variante de voz solamente más pequeña (Waveshare 1,54").</span></div></div>
+</div></section>
+
+</div><!-- /techzone -->
+
+<footer>
+  <div class="wrap">
+    <div class="pill">M5Stack CoreS3 Lite</div><div class="pill">ESP32-S3 · Arduino</div><div class="pill">Python · Whisper</div><div class="pill">claude -p (suscripción)</div><div class="pill">Chatterbox</div>
+    <p style="margin-top:18px">Robot CoreS3 Lite · proyecto abierto de investigación y educación ·
+      <a href="https://github.com/inematds/robo-cores3-lite">inematds/robo-cores3-lite</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='robo-cores3-lite-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    try{ if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; } }catch(e){}
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      try{ localStorage.setItem(KEY, light?'light':'dark'); }catch(e){}
+    });
+  })();
+</script>
+</body>
+</html>

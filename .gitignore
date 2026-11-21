@@ -1,0 +1,21 @@
+# segredos (o repo vai ser público)
+servidor/.env
+firmware/**/segredos.h
+
+# dados do servidor: gravações e histórico de conversa
+servidor/dados/
+servidor/teste/resposta.wav
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# firmware: saída de compilação
+firmware/**/build/
+
+# CAD: temporários
+.preview/
+servidor/teste/resposta-conversa.wav
+guia/assets/_logs/
+guia/assets/*.codex.log
