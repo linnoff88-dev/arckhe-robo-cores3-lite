@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Voz residente do robô: Chatterbox carregado UMA vez, atende frases curtas.
 
-O inemavox carrega o Chatterbox a cada pedido (14 a 28 s por frase, medido em 15/11/2026). Aqui o modelo fica na
+O ARCKHÉvox carrega o Chatterbox a cada pedido (14 a 28 s por frase, medido em 15/11/2026). Aqui o modelo fica na
 memória e o processo sai sozinho depois de OCIOSO segundos parado, para liberar a GPU (mesmo padrêo do
-~/projetos/inemavox/whisper_daemon.py). Mesmo modelo e mesmos parâmetros do chatterbox_tts_worker.py do inemavox:
+~/projetos/ARCKHÉvox/whisper_daemon.py). Mesmo modelo e mesmos parâmetros do chatterbox_tts_worker.py do ARCKHÉvox:
 nêo é modelo novo. Só escuta em 127.0.0.1.
 
-Roda no ambiente conda do inemavox:
+Roda no ambiente conda do ARCKHÉvox:
   ~/miniconda3/envs/chatterbox/bin/python3 servidor/voz_residente.py [--porta 7872] [--ocioso 600]
 
   GET  /saude                                        -> {"ok": true, "device": ...}

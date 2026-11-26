@@ -6,7 +6,7 @@
 </div>
 
 
-[![RobêÂ´ que conversa](guia/assets/banner.jpg)](https://inematds.github.io/robo-cores3-lite/guia/)
+[![RobêÂ´ que conversa](guia/assets/banner.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/)
 
 **ê°Å¸â¡Â§ê°Å¸â¡Â· [PortuguêÂªs](README.md) êÂ· ê°Å¸â¡Âºê°Å¸â¡Â¸ [English](README.en.md) êÂ· ê°Å¸â¡Âªê°Å¸â¡Â¸ [EspaêÂ±ol](README.es.md)**
 
@@ -23,7 +23,7 @@ entêÂ£o o robêÂ´ inteiro ainda nêÂ£o foi testado.
 
 ## ê°Å¸ââ Guia de uso
 
-Guia completo (landing + passo a passo): **https://inematds.github.io/robo-cores3-lite/guia/**
+Guia completo (landing + passo a passo): **https://linnoff88-dev.github.io/arckhe-/guia/**
 
 ## Mais detalhes
 
@@ -79,10 +79,10 @@ Legenda: ê°Å¸Â§Â  sessêÂ£o com o Nei êÂ· ê¢Å¡â¢ê¯Â�
 | 11 | Conversar na bancada: 5 perguntas seguidas | [PLANO.md](PLANO.md), fase F2 | ê°Å¸Â§Â  | ê¢â¬â |
 | 12 | OpêÂ§êÂ£o A, direto na API | sêÂ³ com autorizaêÂ§êÂ£o do Nei: [PLANO.md](PLANO.md), fase F3 | ê°Å¸Â§Â  | ê¢â¬â |
 | 13 | VisêÂ£o: foto e poucos quadros | [PLANO.md](PLANO.md), fase F4 | ê°Å¸Â§Â  | ê¢â¬â |
-| 14 | Guia PT/EN/ES em `guia/` (skill `projetos-landing-guia`, traduêÂ§êÂ£o pelo `inema-traduz`, revisor independente) | `guia/index.html`, `guia/en/`, `guia/es/` | ê°Å¸Â§Â  + ê°Å¸Â¤â | sim (15/11/2026) |
-| 15 | Publicar: push no `main`; o GitHub Pages sai pelo Actions | `git push` ê¢â â https://inematds.github.io/robo-cores3-lite/guia/ | ê¢Å¡â¢ê¯Â¸Â | sim |
-| 16 | Portal inema.club, inemabuscas e catêÂ¡logo PRO | skill `atualiza-portal` | ê°Å¸Â§Â  | sim ê¢â¬â [PUBLICACAO.md](PUBLICACAO.md) |
-| 17 | TêÂ³pico no grupo INEMA.ROBOT do Telegram + MENU | skill `postar-telegram` | ê°Å¸Â§Â  | sim ê¢â¬â [PUBLICACAO.md](PUBLICACAO.md) |
+| 14 | Guia PT/EN/ES em `guia/` (skill `projetos-landing-guia`, traduêÂ§êÂ£o pelo `ARCKHÉ-traduz`, revisor independente) | `guia/index.html`, `guia/en/`, `guia/es/` | ê°Å¸Â§Â  + ê°Å¸Â¤â | sim (15/11/2026) |
+| 15 | Publicar: push no `main`; o GitHub Pages sai pelo Actions | `git push` ê¢â â https://linnoff88-dev.github.io/arckhe-/guia/ | ê¢Å¡â¢ê¯Â¸Â | sim |
+| 16 | Portal ARCKHÉ AI, ARCKHÉbuscas e catêÂ¡logo PRO | skill `atualiza-portal` | ê°Å¸Â§Â  | sim ê¢â¬â [PUBLICACAO.md](PUBLICACAO.md) |
+| 17 | TêÂ³pico no grupo ARCKHÉ.ROBOT do Telegram + MENU | skill `postar-telegram` | ê°Å¸Â§Â  | sim ê¢â¬â [PUBLICACAO.md](PUBLICACAO.md) |
 | 18 | VêÂ­deo no canal lives6 e no guia | outro agente; marca `<!-- VIDEO: -->` no guia | ê°Å¸Â§Â  | sim (15/11/2026) ê¢â¬â [lives6](https://www.youtube.com/watch?v=ckhcNbClXNs) |
 
 No robêÂ´, o êÂºnico passo com `claude -p` êÂ© o 6, pela assinatura, sem ferramentas. O ê°Å¸Â¤â do passo 14 êÂ© a traduêÂ§êÂ£o e o revisor.
@@ -91,7 +91,7 @@ No robêÂ´, o êÂºnico passo com `claude -p` êÂ© o 6, pela assinatu
 
 - Nenhuma API externa sem autorizaêÂ§êÂ£o explêÂ­cita do Nei (serviêÂ§o e finalidade). A opêÂ§êÂ£o A existe sêÂ³ no papel.
 - Claude sêÂ³ pela assinatura (`claude -p`), nunca por chave de API.
-- Repo pêÂºblico em https://github.com/inematds/robo-cores3-lite (publicado por ordem do Nei em 15/11/2026).
+- Repo pêÂºblico em https://github.com/linnoff88-dev/robo-cores3-lite (publicado por ordem do Nei em 15/11/2026).
 
 ---
 

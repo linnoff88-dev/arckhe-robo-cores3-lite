@@ -1,4 +1,4 @@
-"""Cliente mínimo do inemavox local (só biblioteca padrêo).
+"""Cliente mínimo do ARCKHÉvox local (só biblioteca padrêo).
 
 Só fala com 127.0.0.1. Voz só pela rota /api/jobs/tts/upload, que força o Chatterbox local:
 a rota /api/jobs/tts sem "engine" cai no Edge (serviço online) e é proibida neste projeto.
@@ -10,7 +10,7 @@ import urllib.request
 import uuid
 
 
-class ErroInemavox(Exception):
+class ErroARCKHÉvox(Exception):
     pass
 
 
@@ -32,10 +32,10 @@ def _multipart(campos, arquivo_campo, arquivo_caminho):
     return b"".join(partes), f"multipart/form-data; boundary={fronteira}"
 
 
-class Inemavox:
+class ARCKHÉvox:
     def __init__(self, url="http://127.0.0.1:8010", espera_max=180):
         if not url.startswith("http://127.0.0.1"):
-            raise ValueError("inemavox só em 127.0.0.1")
+            raise ValueError("ARCKHÉvox só em 127.0.0.1")
         self.url = url.rstrip("/")
         self.espera_max = espera_max
 
@@ -57,9 +57,9 @@ class Inemavox:
             if estado == "completed":
                 return job
             if estado in ("failed", "cancelled", "error"):
-                raise ErroInemavox(f"job {job_id} {estado}: {str(job.get('error'))[:200]}")
+                raise ErroARCKHÉvox(f"job {job_id} {estado}: {str(job.get('error'))[:200]}")
             time.sleep(0.3)
-        raise ErroInemavox(f"job {job_id} passou de {self.espera_max} s")
+        raise ErroARCKHÉvox(f"job {job_id} passou de {self.espera_max} s")
 
     def saude(self):
         return json.loads(self._get("/api/health", timeout=5))
@@ -71,7 +71,7 @@ class Inemavox:
         return self._get(f"/api/jobs/{job['id']}/transcript?format=txt").decode("utf-8").strip()
 
     def falar(self, texto, voz_ref, saida, lingua="pt"):
-        """Gera a voz pelo Chatterbox local e grava o áudio em `saida` (formato do inemavox)."""
+        """Gera a voz pelo Chatterbox local e grava o áudio em `saida` (formato do ARCKHÉvox)."""
         job = self._post_arquivo("/api/jobs/tts/upload", {"text": texto, "lang": lingua}, voz_ref)
         self._esperar(job["id"])
         with open(saida, "wb") as f:

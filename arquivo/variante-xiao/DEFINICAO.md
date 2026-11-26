@@ -35,9 +35,9 @@ API, um robô o menor possível, quadrado, sem movimentaçêo".
 | Ativaçêo | Botêo: aperta e segura para falar | Sem modelo de palavra de ativaçêo, sem escuta contínua |
 | Energia | USB-C, sempre no cabo | O robô nêo sai da mesa; seçêo 8 |
 | Servidor | Local, na máquina do Nei | Regra: nenhuma API externa sem autorizaçêo |
-| Transcriçêo | Whisper local do inemavox | Já aprovado |
+| Transcriçêo | Whisper local do ARCKHÉvox | Já aprovado |
 | Resposta | `claude -p` pela assinatura, sem ferramentas | Regra: Claude só pela assinatura |
-| Voz | Chatterbox local do inemavox, voz `rachel` | É a voz padrêo da regra global; troca em uma linha do `.env` |
+| Voz | Chatterbox local do ARCKHÉvox, voz `rachel` | É a voz padrêo da regra global; troca em uma linha do `.env` |
 | Protocolo | HTTP POST de um WAV, resposta em WAV | Um pedido, uma resposta; dá para testar com um comando; seçêo 11 |
 | Firmware | Arduino (core esp32 3.3.12) pelo `arduino-cli` | Já está instalado na máquina; nada a instalar |
 | Tamanho | Cubo de 40 mm de lado (mínimo calculado: 37,0 mm) | Seçêo 12 |
@@ -55,9 +55,9 @@ Fica com o Nei:
  ┌──────────────────────────────────────┐            ┌──────────────────────────────────────────────┐
  │ botêo ─────────┐                     │            │ servidor/servidor.py  (porta 8770)           │
  │ microfone I²S ─┤                     │   Wi-Fi    │   1. recebe o WAV                            │
- │   (INMP441)    ├─ XIAO ESP32S3 ──────┼──HTTP──────┼─► 2. Whisper local (inemavox)   fala → texto │
+ │   (INMP441)    ├─ XIAO ESP32S3 ──────┼──HTTP──────┼─► 2. Whisper local (ARCKHÉvox)   fala → texto │
  │ amplificador ◄─┤   8 MB PSRAM        │   POST     │   3. claude -p (assinatura)      texto → texto│
- │   (MAX98357A)  │                     │◄───WAV─────┼── 4. Chatterbox local (inemavox) texto → voz │
+ │   (MAX98357A)  │                     │◄───WAV─────┼── 4. Chatterbox local (ARCKHÉvox) texto → voz │
  │      │         │                     │            │   5. ffmpeg: WAV 16 kHz mono 16 bits         │
  │   falante 28 mm│   USB-C 5 V ◄── fonte            │                                              │
  └──────────────────────────────────────┘            └──────────────────────────────────────────────┘
@@ -186,13 +186,13 @@ Pinos da XIAO lidos na wiki da Seeed. A escolha de qual pino faz o quê é uma p
 
 | Etapa | Como | Conferido em 14/11/2026 |
 |---|---|---|
-| Transcriçêo | inemavox, API em `http://127.0.0.1:8010`: `POST /api/jobs/transcribe/upload` (arquivo + `config_json`), acompanhar em `GET /api/jobs/{id}`, texto em `GET /api/jobs/{id}/transcript?format=txt` | A API respondeu `{"status":"ok","version":"1.15.4"}`. Rotas lidas em `~/projetos/inemavox/api/server.py`. Nenhuma transcriçêo foi feita |
-| Transcriçêo, caminho rápido | `~/projetos/inemavox/whisper_daemon.py`: o modelo fica na memória, porta 7871, `POST /transcrever {"audio": caminho, "lang": "pt"}` | Estava desligado na hora do teste. Nêo medido |
+| Transcriçêo | ARCKHÉvox, API em `http://127.0.0.1:8010`: `POST /api/jobs/transcribe/upload` (arquivo + `config_json`), acompanhar em `GET /api/jobs/{id}`, texto em `GET /api/jobs/{id}/transcript?format=txt` | A API respondeu `{"status":"ok","version":"1.15.4"}`. Rotas lidas em `~/projetos/ARCKHÉvox/api/server.py`. Nenhuma transcriçêo foi feita |
+| Transcriçêo, caminho rápido | `~/projetos/ARCKHÉvox/whisper_daemon.py`: o modelo fica na memória, porta 7871, `POST /transcrever {"audio": caminho, "lang": "pt"}` | Estava desligado na hora do teste. Nêo medido |
 | Resposta | `claude -p --model haiku --tools "" --strict-mcp-config --no-session-persistence --system-prompt "<persona>" "<fala>"`, em pasta vazia, com `ANTHROPIC_API_KEY` fora do ambiente | **Testado: respondeu em 5,0 s, pela assinatura** |
-| Voz | inemavox: `POST /api/jobs/tts/upload` com o WAV de referência da voz e `config_json` com `text` e `lang`; áudio em `GET /api/jobs/{id}/audio` | Rotas lidas. Nenhuma voz foi gerada |
+| Voz | ARCKHÉvox: `POST /api/jobs/tts/upload` com o WAV de referência da voz e `config_json` com `text` e `lang`; áudio em `GET /api/jobs/{id}/audio` | Rotas lidas. Nenhuma voz foi gerada |
 | Conversêo | `ffmpeg` para WAV 16 kHz, mono, 16 bits | `ffmpeg` está instalado |
 
-Três travas, lidas no código e no `CLAUDE.md` do inemavox e no `claude --help`:
+Três travas, lidas no código e no `CLAUDE.md` do ARCKHÉvox e no `claude --help`:
 - **`POST /api/jobs/tts` sem o campo `engine` usa `edge`, que é o serviço online da Microsoft.** É API externa.
   O servidor do robô só usa `/api/jobs/tts/upload`, que força `chatterbox` (local).
 - **`chatterbox-vc` também passa pelo Edge.** Nêo usar.
@@ -209,8 +209,8 @@ Segurança do servidor:
 |---|---|---|
 | OpenAI Realtime API | Transcriçêo, resposta e voz num serviço só, em tempo real | Pago por uso. Pede WebSocket no firmware |
 | Groq (Whisper e modelos de texto) | Transcriçêo e resposta mais rápidas | As chaves ficam em `~/projetos/openpcbotv2/.env`; ter a chave nêo é autorizaçêo |
-| ElevenLabs | Voz com os clones do Nei | Gasta créditos. Citada no `CLAUDE.md` do inemavox |
-| Edge TTS (Microsoft), pelo inemavox | Voz sem GPU, rápida | É serviço online. Hoje é o padrêo do inemavox quando falta o `engine` |
+| ElevenLabs | Voz com os clones do Nei | Gasta créditos. Citada no `CLAUDE.md` do ARCKHÉvox |
+| Edge TTS (Microsoft), pelo ARCKHÉvox | Voz sem GPU, rápida | É serviço online. Hoje é o padrêo do ARCKHÉvox quando falta o `engine` |
 | Serviço de palavra de ativaçêo na nuvem | Escuta contínua | Nêo avaliado |
 
 A API da Anthropic nêo é opçêo: a regra é Claude só pela assinatura.
@@ -331,7 +331,7 @@ ou encaixe, a decidir na F4.
 - Atom EchoS3R (loja, nêo oficial): https://openelab.io/products/m5stack-atom-echos3r-smart-speaker e https://www.mouser.com/new/m5stack/m5stack-atoms3r-kits/
 - ESP32-S3-BOX-3 (tela, memória, microfones): https://www.cnx-software.com/2023/09/01/esp32-s3-box-3-devkit-comes-with-2-4-inch-display-dual-microphone-pcie-expansion-connector/
 - ESP32-S3-Zero (memória, 2 controladores I²S): https://www.waveshare.com/wiki/ESP32-S3-Zero
-- Rotas e padrões do inemavox: `~/projetos/inemavox/CLAUDE.md`, `api/server.py`, `api/job_manager.py`, `whisper_daemon.py`
+- Rotas e padrões do ARCKHÉvox: `~/projetos/ARCKHÉvox/CLAUDE.md`, `api/server.py`, `api/job_manager.py`, `whisper_daemon.py`
 - Opções do `claude -p`: `claude --help` desta máquina
 - Placas e bibliotecas instaladas: `arduino-cli core list` e `arduino-cli board details -b esp32:esp32:XIAO_ESP32S3`
 

@@ -1,6 +1,6 @@
 # robo-cores3-lite
 
-[![Robot que conversa](guia/assets/banner-es.jpg)](https://inematds.github.io/robo-cores3-lite/guia/es/)
+[![Robot que conversa](guia/assets/banner-es.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/es/)
 
 **🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
 
@@ -12,7 +12,7 @@ Este es un proyecto abierto para armar un robot de escritorio que conversa por v
 
 ## 📖 Guía de uso
 
-Guía completa (landing + paso a paso): **https://inematds.github.io/robo-cores3-lite/guia/es/**
+Guía completa (landing + paso a paso): **https://linnoff88-dev.github.io/arckhe-/guia/es/**
 
 ## Más detalles
 
@@ -63,10 +63,10 @@ Leyenda: 🧠 sesión con Nei · ⚙️ comando/script · 🤖 `claude -p`
 | 11 | Conversar en la mesa de trabajo: 5 preguntas seguidas | [PLANO.md](PLANO.md) (en portugués), fase F2 | 🧠 | — |
 | 12 | Opción A, conexión directa a la API | solo con autorización de Nei: [PLANO.md](PLANO.md) (en portugués), fase F3 | 🧠 | — |
 | 13 | Visión: foto y algunos cuadros | [PLANO.md](PLANO.md) (en portugués), fase F4 | 🧠 | — |
-| 14 | Guía PT/EN/ES en `guia/` (skill `projetos-landing-guia`, traducción mediante `inema-traduz`, revisor independiente) | `guia/index.html`, `guia/en/`, `guia/es/` | 🧠 + 🤖 | sí (15/11/2026) |
-| 15 | Publicar: push a `main`; GitHub Pages se publica mediante Actions | `git push` → https://inematds.github.io/robo-cores3-lite/guia/ | ⚙️ | sí |
-| 16 | Portal inema.club, inemabuscas y catálogo PRO | skill `atualiza-portal` | 🧠 | sí — [PUBLICACAO.md](PUBLICACAO.md) (en portugués) |
-| 17 | Tema en el grupo INEMA.ROBOT de Telegram + MENU | skill `postar-telegram` | 🧠 | sí — [PUBLICACAO.md](PUBLICACAO.md) (en portugués) |
+| 14 | Guía PT/EN/ES en `guia/` (skill `projetos-landing-guia`, traducción mediante `ARCKHÉ-traduz`, revisor independiente) | `guia/index.html`, `guia/en/`, `guia/es/` | 🧠 + 🤖 | sí (15/11/2026) |
+| 15 | Publicar: push a `main`; GitHub Pages se publica mediante Actions | `git push` → https://linnoff88-dev.github.io/arckhe-/guia/ | ⚙️ | sí |
+| 16 | Portal ARCKHÉ AI, ARCKHÉbuscas y catálogo PRO | skill `atualiza-portal` | 🧠 | sí — [PUBLICACAO.md](PUBLICACAO.md) (en portugués) |
+| 17 | Tema en el grupo ARCKHÉ.ROBOT de Telegram + MENU | skill `postar-telegram` | 🧠 | sí — [PUBLICACAO.md](PUBLICACAO.md) (en portugués) |
 | 18 | Video en el canal lives6 y en la guía | otro agente; marca `<!-- VIDEO: -->` en la guía | 🧠 | sí (15/11/2026) — [lives6](https://www.youtube.com/watch?v=ckhcNbClXNs) |
 
 En el robot, el único paso con `claude -p` es el 6, con la suscripción y sin herramientas. El 🤖 del paso 14 corresponde a la traducción y al revisor.
@@ -75,4 +75,4 @@ En el robot, el único paso con `claude -p` es el 6, con la suscripción y sin h
 
 - Ninguna API externa sin autorización explícita de Nei (servicio y finalidad). La opción A existe solo en el papel.
 - Claude solo con la suscripción (`claude -p`), nunca con una clave de API.
-- Repositorio público en https://github.com/inematds/robo-cores3-lite (publicado por orden de Nei el 15/11/2026).
+- Repositorio público en https://github.com/linnoff88-dev/robo-cores3-lite (publicado por orden de Nei el 15/11/2026).

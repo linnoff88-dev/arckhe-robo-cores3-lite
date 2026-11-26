@@ -4,7 +4,7 @@
 Três assuntos em vídeos 9:16 curtos com o avatar do Nei, publicados pelo yt-pubx nos lives:
 - Imersêo Do chat ao agente às 12:00, refeita em 1ª pessoa: "eu vou estar", "minha visêo estratégica".
 - Os 5 níveis de IA às 16:00 (escada AL1–AL5, a análise vira plano de evoluçêo).
-- Do zero ao Jarvis às 08:00 (conteúdo grátis que ele fez este mês no inema.club, com kit passo a passo).
+- Do zero ao Jarvis às 08:00 (conteúdo grátis que ele fez este mês no ARCKHÉ AI, com kit passo a passo).
 - "Amanhê é hoje": publicar hoje (15/11), segunda (16/11) e terça (17/11).
 
 ## Decisões do Nei (literais na CONTINUAR.md)

@@ -3,7 +3,7 @@
 
   python3 servidor/servidor.py
 
-Um turno: WAV do robô → trava de silêncio → Whisper residente (inemavox) → claude -p pela assinatura, sem
+Um turno: WAV do robô → trava de silêncio → Whisper residente (ARCKHÉvox) → claude -p pela assinatura, sem
 ferramentas (com a foto, se veio) → voz residente (Chatterbox) → WAV 16 kHz mono 16 bits de volta.
 Só biblioteca padrêo. Só chama serviços em 127.0.0.1. Protocolo: DEFINICAO.md, seçêo 11.
 """
@@ -28,7 +28,7 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 sys.path.insert(0, str(AQUI))
-from inemavox import Inemavox  # noqa: E402
+from ARCKHÉvox import ARCKHÉvox  # noqa: E402
 import espera  # noqa: E402
 
 LIMITE_FALA = 1_000_000
@@ -51,7 +51,7 @@ def ler_env(caminho):
 CFG = {
     "ROBO_PORTA": "8770",
     "ROBO_TOKEN": "",
-    "INEMAVOX_URL": "http://127.0.0.1:8010",
+    "ARCKHÉVOX_URL": "http://127.0.0.1:8010",
     "WHISPER_DAEMON_URL": "http://127.0.0.1:7871",
     "VOZ_URL": "http://127.0.0.1:7872",
     "WHISPER_MODELO": "large-v3",
@@ -63,7 +63,7 @@ CFG = {
     "CONDA_PY": os.path.expanduser("~/miniconda3/envs/chatterbox/bin/python3"),
 }
 CFG.update(ler_env(AQUI / ".env"))
-for chave in ("INEMAVOX_URL", "WHISPER_DAEMON_URL", "VOZ_URL"):
+for chave in ("ARCKHÉVOX_URL", "WHISPER_DAEMON_URL", "VOZ_URL"):
     if not CFG[chave].startswith("http://127.0.0.1:"):
         raise SystemExit(f"{chave} tem de ser http://127.0.0.1:<porta> (o servidor só fala com esta máquina)")
 if len(CFG["ROBO_TOKEN"]) < 16 or CFG["ROBO_TOKEN"].startswith("troque"):
@@ -77,7 +77,7 @@ for p in (DADOS / "turnos", VAZIO):
 TURNO = threading.Lock()   # um turno por vez: a GPU é uma só
 FOTOS = {}                 # turno -> (instante, caminho)
 FOTOS_TRAVA = threading.Lock()
-INEMAVOX = Inemavox(CFG["INEMAVOX_URL"])
+ARCKHÉVOX = ARCKHÉvox(CFG["ARCKHÉVOX_URL"])
 ESCOLHEDOR = espera.Escolhedor()
 PASTA_ESPERA = AQUI / "espera"
 SUBINDO = {"whisper": threading.Lock(), "voz": threading.Lock()}  # um processo de cada, nunca dois
@@ -139,7 +139,7 @@ def _sem_erro(f):
 
 def garantir_whisper():
     porta = urllib.parse.urlparse(CFG["WHISPER_DAEMON_URL"]).port
-    cmd = [CFG["CONDA_PY"], os.path.expanduser("~/projetos/inemavox/whisper_daemon.py"),
+    cmd = [CFG["CONDA_PY"], os.path.expanduser("~/projetos/ARCKHÉvox/whisper_daemon.py"),
            "--porta", str(porta), "--modelo", CFG["WHISPER_MODELO"], "--ocioso", "600"]
     return garantir(CFG["WHISPER_DAEMON_URL"], cmd, "whisper")
 
@@ -185,9 +185,9 @@ def transcrever(wav):
         return " ".join(s.get("text", "").strip() for s in r.get("segments", [])).strip()
     except Recusa:
         raise
-    except Exception as e:  # noqa: BLE001  — caminho lento, mas local: a fila do inemavox
-        log(f"whisper residente falhou ({e}); usando a fila do inemavox")
-        return INEMAVOX.transcrever(str(wav), CFG["WHISPER_MODELO"])
+    except Exception as e:  # noqa: BLE001  — caminho lento, mas local: a fila do ARCKHÉvox
+        log(f"whisper residente falhou ({e}); usando a fila do ARCKHÉvox")
+        return ARCKHÉVOX.transcrever(str(wav), CFG["WHISPER_MODELO"])
 
 
 def historico(robo):
@@ -242,7 +242,7 @@ CLAUDE = ClaudePronto()
 
 # Trava de cota compartilhada (17/11/2026): mesma tabela `pools` do EngineBridge e do ia_motor.py
 # (~/.local/state/enginebridge/state.sqlite). Falha do banco = segue sem trava.
-COTA_DB = Path(os.environ.get("INEMA_COTA_DB", Path.home() / ".local/state/enginebridge/state.sqlite")).expanduser()
+COTA_DB = Path(os.environ.get("ARCKHÉ_COTA_DB", Path.home() / ".local/state/enginebridge/state.sqlite")).expanduser()
 COTA_POOL = "claude:" + str(Path(os.environ.get("CLAUDE_CONFIG_DIR", Path.home() / ".claude")).expanduser())
 
 

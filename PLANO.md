@@ -28,12 +28,12 @@ Pronto quando:
 ## F1 — Servidor local responde a um WAV de teste
 
 **Pronta em 15/11/2026:** os 10 critérios passaram (tempos em `servidor/MEDIDAS.md`). Mudança de caminho: a
-transcriçêo e a voz pela fila de jobs do inemavox levavam 12 s e 14–28 s; o servidor usa o Whisper residente do
-inemavox e a voz residente `servidor/voz_residente.py`, que sobem sob demanda e saem depois de 10 min parados.
+transcriçêo e a voz pela fila de jobs do ARCKHÉvox levavam 12 s e 14–28 s; o servidor usa o Whisper residente do
+ARCKHÉvox e a voz residente `servidor/voz_residente.py`, que sobem sob demanda e saem depois de 10 min parados.
 
 O que fazer: escrever `servidor/servidor.py` (só biblioteca padrêo do Python) e `servidor/testar.py`, conforme
 [servidor/README.md](servidor/README.md). Criar `servidor/teste/pergunta.wav` sem depender de ninguém: gerar
-"que horas sêo em Tóquio?" pela rota `/api/jobs/tts/upload` do inemavox (voz `rachel`) e converter com
+"que horas sêo em Tóquio?" pela rota `/api/jobs/tts/upload` do ARCKHÉvox (voz `rachel`) e converter com
 `ffmpeg -ar 16000 -ac 1 -c:a pcm_s16le`. Criar `servidor/teste/foto.jpg` (640 × 480) e
 `servidor/teste/pergunta-visao.wav` ("o que você está vendo?").
 
@@ -117,11 +117,11 @@ Pronto quando:
 
 ## F5 — Guia e publicaçêo
 
-Só com a ordem do Nei: criar o repo `inematds/robo-cores3-lite`, primeiro `git push`, guia em `guia/index.html`
-(skill `projetos-landing-guia`, PT + `/en/` + `/es/`, traduçêo pelo `inema-traduz`), portal.
+Só com a ordem do Nei: criar o repo `linnoff88-dev/robo-cores3-lite`, primeiro `git push`, guia em `guia/index.html`
+(skill `projetos-landing-guia`, PT + `/en/` + `/es/`, traduçêo pelo `ARCKHÉ-traduz`), portal.
 
 Pronto quando:
-- O guia abre em `https://inematds.github.io/robo-cores3-lite/guia/` nos três idiomas.
+- O guia abre em `https://linnoff88-dev.github.io/arckhe-/guia/` nos três idiomas.
 - O revisor independente deu nota e a nota está registrada.
 - O README tem a seçêo "O processo, do início ao fim" batendo com o que foi feito.
 - O push entrou no `origin`. O Vercel nêo é conferido.
@@ -150,5 +150,5 @@ Pronto quando:
 | Servidor aberto na rede | Outro aparelho manda áudio | F1, teste 5 | Token no cabeçalho |
 | Chave da API no robô (A1) | Quem pegar o robô extrai a chave | F3 | Variante A2 (chave no PC) ou chave com limite de gasto |
 | Custo da opçêo A | Conversa longa gasta mais que o esperado | F3, teste 4 | Medir antes de deixar ligado; limite de gasto na conta |
-| Pastas de job acumulando | Cada turno cria pastas em `~/projetos/inemavox/jobs/` | F1, 20 turnos | Combinar com o Nei; nêo apagar nada do inemavox |
+| Pastas de job acumulando | Cada turno cria pastas em `~/projetos/ARCKHÉvox/jobs/` | F1, 20 turnos | Combinar com o Nei; nêo apagar nada do ARCKHÉvox |
 | Compra | Lite indisponível ou cara no Brasil | F0 | CoreS3 completa (mesma câmera, US$ 15 a mais) |

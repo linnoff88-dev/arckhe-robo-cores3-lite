@@ -55,7 +55,7 @@ Fica com o Nei:
 ```
                         ┌───────────── opçêo B (padrêo) ─────────────┐
  CoreS3 Lite ──Wi-Fi──▶ │ servidor local, porta 8770, máquina do Nei │
- tela + câmera          │  Whisper (inemavox) → claude -p → Chatterbox│
+ tela + câmera          │  Whisper (ARCKHÉvox) → claude -p → Chatterbox│
  mic + falante          └────────────────────────────────────────────┘
         │
         └──Wi-Fi──▶ opçêo A: API de voz em tempo real (Gemini Live ou OpenAI Realtime)
@@ -131,16 +131,16 @@ O que isso muda:
 1. Você segura o dedo na tela. O robô grava para a PSRAM (16 kHz, 16 bits, mono).
 2. Se for pergunta com visêo, ele manda a foto antes (`POST /v1/foto`).
 3. Você solta. O robô manda o WAV (`POST /v1/fala`).
-4. O servidor transcreve (Whisper do inemavox), pede a resposta ao `claude -p` pela assinatura e gera a voz
-   (Chatterbox do inemavox).
+4. O servidor transcreve (Whisper do ARCKHÉvox), pede a resposta ao `claude -p` pela assinatura e gera a voz
+   (Chatterbox do ARCKHÉvox).
 5. O robô recebe o WAV, troca o barramento para o falante, toca e mostra o texto.
 
 | Etapa | Como | Conferido |
 |---|---|---|
-| Transcriçêo | inemavox `127.0.0.1:8010`: `POST /api/jobs/transcribe/upload`; ou o Whisper residente na porta 7871 | API respondeu `ok` (v1.15.4) em 14/11; nenhuma transcriçêo feita |
+| Transcriçêo | ARCKHÉvox `127.0.0.1:8010`: `POST /api/jobs/transcribe/upload`; ou o Whisper residente na porta 7871 | API respondeu `ok` (v1.15.4) em 14/11; nenhuma transcriçêo feita |
 | Resposta | `claude -p --model haiku --tools "" --strict-mcp-config --no-session-persistence`, pasta vazia, `env -u ANTHROPIC_API_KEY` | **Respondeu em 5,0 s em 14/11** |
 | Resposta com foto | Como a imagem entra no `claude -p` sem liberar ferramentas **nêo foi testado**. Candidato: entrada `--input-format stream-json` com um bloco de imagem. A F1 prova; a trava "sem ferramentas" nêo se afrouxa sem o Nei | nêo testado |
-| Voz | inemavox `POST /api/jobs/tts/upload` (força o Chatterbox local) | rotas lidas; nenhuma voz gerada |
+| Voz | ARCKHÉvox `POST /api/jobs/tts/upload` (força o Chatterbox local) | rotas lidas; nenhuma voz gerada |
 | Conversêo | `ffmpeg` para WAV 16 kHz mono 16 bits | instalado |
 
 Travas: a rota `/api/jobs/tts` sem `engine` e o `chatterbox-vc` usam o Edge, que é serviço online: proibidos.
@@ -255,7 +255,7 @@ Falha: `ERRO` por 2 s e volta a `PRONTO`. Toque durante `FALANDO` → `PRONTO`.
   CoreS3 SE https://pt.aliexpress.com/item/1005007059753733.html
 - Waveshare ESP32-S3-LCD-1.54 (fotos e lista de componentes do anúncio): https://pt.aliexpress.com/item/1005012716829974.html
 - Placa no core: `arduino-cli board details -b esp32:esp32:m5stack_cores3` e `boards.txt` do core 3.3.12
-- inemavox: `~/projetos/inemavox/CLAUDE.md`, `api/server.py`, `api/job_manager.py`; `claude --help`
+- ARCKHÉvox: `~/projetos/ARCKHÉvox/CLAUDE.md`, `api/server.py`, `api/job_manager.py`; `claude --help`
 
 ## 14. O que ainda nêo foi verificado
 

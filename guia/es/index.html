@@ -7,10 +7,10 @@
 <meta name="description" content="Robot de escritorio con la placa lista M5Stack CoreS3 Lite: escucha, responde con voz, muestra subtítulos y entiende fotos. El cerebro funciona en tu computadora (Whisper, Claude con tu suscripción y voz local), sin API de pago. Servidor listo y medido; la placa todavía está en camino.">
 <meta property="og:title" content="Robot CoreS3 Lite — un robot de escritorio que conversa">
 <meta property="og:description" content="Una placa lista en tu escritorio, el cerebro en tu computadora: escucha, habla, muestra subtítulos y entiende fotos, sin API de pago.">
-<meta property="og:image" content="https://inematds.github.io/robo-cores3-lite/guia/assets/banner-es.jpg">
-<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/robo-cores3-lite/guia/">
-<link rel="alternate" hreflang="en" href="https://inematds.github.io/robo-cores3-lite/guia/en/">
-<link rel="alternate" hreflang="es" href="https://inematds.github.io/robo-cores3-lite/guia/es/">
+<meta property="og:image" content="https://linnoff88-dev.github.io/arckhe-/guia/assets/banner-es.jpg">
+<link rel="alternate" hreflang="pt-BR" href="https://linnoff88-dev.github.io/arckhe-/guia/">
+<link rel="alternate" hreflang="en" href="https://linnoff88-dev.github.io/arckhe-/guia/en/">
+<link rel="alternate" hreflang="es" href="https://linnoff88-dev.github.io/arckhe-/guia/es/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -47,8 +47,8 @@
   nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
   nav .brand .emoji{font-size:1.25rem}
   nav .sep{color:var(--mut);opacity:.45}
-  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
-  nav .inema:hover{filter:brightness(1.15)}
+  nav .ARCKHÉ{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .ARCKHÉ:hover{filter:brightness(1.15)}
   nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
   nav .pro:hover{filter:brightness(1.15)}
   nav .clubpro{display:inline-flex;align-items:center;gap:6px}
@@ -138,9 +138,9 @@
   <a class="brand" href="#top"><span class="emoji">🤖</span> Robot CoreS3 Lite</a>
   <span class="sep">|</span>
   <span class="clubpro">
-    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <a class="ARCKHÉ" href="https://ARCKHÉ AI" target="_blank" rel="noopener">ARCKHÉ AI</a>
     <span class="sep">-</span>
-    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+    <a class="pro" href="https://ARCKHÉ.pro" target="_blank" rel="noopener">PRO</a>
   </span>
   <div class="links">
     <a class="sec" href="#ideia">La idea</a>
@@ -151,7 +151,7 @@
     <a class="sec" href="#tecnico">Kit (técnico)</a>
     <span class="lang"><a href="../">PT</a><a href="../en/">EN</a><a class="on" href="./">ES</a></span>
     <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
-    <a class="btn" href="https://github.com/inematds/robo-cores3-lite" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="https://github.com/linnoff88-dev/robo-cores3-lite" target="_blank" rel="noopener">GitHub</a>
   </div>
 </div></nav>
 
@@ -170,7 +170,7 @@
       <p class="lead">Quieres conversar con una máquina sin pagar una API por cada pregunta y sin que la grabación de tu voz salga de casa. El <strong>Robot CoreS3 Lite</strong> usa una placa lista de R$ 256 (reales brasileños; precio de lista US$ 44,90) para escuchar y hablar; un servidor en tu PC transcribe y genera la voz ahí mismo y le pide la respuesta a Claude con tu suscripción (la mensual, que ya pagas). Hoy el servidor está listo y medido; la placa todavía no llegó.</p>
       <div class="cta">
         <a class="btn" href="#ideia">Entiéndelo en 5 minutos</a>
-        <a class="btn ghost" href="https://github.com/inematds/robo-cores3-lite" target="_blank" rel="noopener">Ver en GitHub</a>
+        <a class="btn ghost" href="https://github.com/linnoff88-dev/robo-cores3-lite" target="_blank" rel="noopener">Ver en GitHub</a>
       </div>
     </div>
     <figure><img src="../assets/banner-es.jpg" alt="Banner: robot que conversa. Una placa lista en el escritorio, el cerebro en tu computadora"><figcaption style="padding:10px 14px;font-size:.85rem;color:var(--mut);background:var(--card)">Ilustración. La placa todavía no llegó: hoy quien escucha, responde y ve la foto es el servidor, probado con grabaciones.</figcaption></figure>
@@ -264,7 +264,7 @@
     <div class="card corpo"><img src="../assets/corpos/giratoria.jpg" alt="Base giratoria de dos servos con la CoreS3 Lite en la parte superior" loading="lazy"><h3>5. Cabeza que gira hacia quien habla</h3><p>Dos servos: la placa encuentra el rostro y la base gira para mirarte. El primer paso más barato y seguro.</p></div>
     <div class="card corpo"><img src="../assets/corpos/jardim.jpg" alt="Carrito de jardín con depósito de agua y la CoreS3 Lite en un mástil" loading="lazy"><h3>6. Jardinero de balcón</h3><p>“Riega la albahaca.” La IA ve qué maceta está seca; el carrito va hasta ella y enciende la bomba durante unos segundos.</p></div>
   </div>
-  <p class="sub" style="margin-top:18px">Orden sugerido: 5 → 2 → 3 o 1 → 4 o 6. Texto completo, con el dibujo de cada uno, en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/IDEIAS-CORPOS.md" target="_blank" rel="noopener">IDEIAS-CORPOS.md</a>.</p>
+  <p class="sub" style="margin-top:18px">Orden sugerido: 5 → 2 → 3 o 1 → 4 o 6. Texto completo, con el dibujo de cada uno, en <a href="https://github.com/linnoff88-dev/robo-cores3-lite/blob/main/IDEIAS-CORPOS.md" target="_blank" rel="noopener">IDEIAS-CORPOS.md</a>.</p>
 </div></section>
 
 
@@ -283,7 +283,7 @@
   <div class="grid g3">
     <div class="card"><h3>🟨 M5Stack CoreS3 Lite</h3><p>ESP32-S3, 16 MB de flash y 8 MB de PSRAM; pantalla táctil de 2" (320 × 240); cámara GC0308 de 0,3 MP; dos micrófonos; parlante de 1 W; batería de 200 mAh. 54 × 54 × 16,5 mm, 54 g.</p><p>R$ 256,55 en la tienda oficial M5Stack de AliExpress, consultado el 15/11/2026, sin envío ni impuestos. Atención: la «CoreS3 SE» no tiene cámara.</p></div>
     <div class="card"><h3>🖥️ Servidor de la opción B</h3><p><code>servidor/servidor.py</code>, puerto 8770, solo biblioteca estándar de Python. Escucha en la red de casa (para que la placa se conecte) y solo acepta solicitudes con contraseña (token). Los servicios que invoca (Whisper y voz) funcionan únicamente en la propia máquina (127.0.0.1). Whisper large-v3 y la voz permanecen cargados mientras hay una conversación y se descargan solos después de 10 minutos sin actividad.</p></div>
-    <div class="card"><h3>🔁 Protocolo sencillo</h3><p>HTTP, una solicitud por turno. La ruta principal, <code>/v1/conversa</code>, devuelve la respuesta en partes: lo que escuchó, la frase para ganar tiempo y cada fragmento de texto con su audio WAV de 16 kHz. La descripción completa está en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/DEFINICAO.md" target="_blank" rel="noopener">DEFINICAO.md</a> (en portugués), sección 11.</p></div>
+    <div class="card"><h3>🔁 Protocolo sencillo</h3><p>HTTP, una solicitud por turno. La ruta principal, <code>/v1/conversa</code>, devuelve la respuesta en partes: lo que escuchó, la frase para ganar tiempo y cada fragmento de texto con su audio WAV de 16 kHz. La descripción completa está en <a href="https://github.com/linnoff88-dev/robo-cores3-lite/blob/main/DEFINICAO.md" target="_blank" rel="noopener">DEFINICAO.md</a> (en portugués), sección 11.</p></div>
   </div>
 </div></section>
 
@@ -309,9 +309,9 @@
 <section id="pre"><div class="wrap">
   <span class="chip">Requisitos</span>
   <h2>Qué necesitas en la computadora</h2>
-  <p class="sub">El cerebro necesita una computadora con Linux y una tarjeta gráfica NVIDIA. inemavox requiere al menos unos 8 GB de memoria de video; aquí Whisper large-v3 y Chatterbox permanecen cargados al mismo tiempo, así que necesitarás más (el consumo de este proyecto no se midió). Se creó y probó en una sola máquina, la del autor; las rutas de abajo son las que busca el servidor. Puedes cambiar el Python del entorno (<code>CONDA_PY</code>) y la voz (<code>VOZ_REF</code>) en <code>servidor/.env</code>; la carpeta de inemavox no: debe ser exactamente <code>~/projetos/inemavox</code>.</p>
+  <p class="sub">El cerebro necesita una computadora con Linux y una tarjeta gráfica NVIDIA. ARCKHÉvox requiere al menos unos 8 GB de memoria de video; aquí Whisper large-v3 y Chatterbox permanecen cargados al mismo tiempo, así que necesitarás más (el consumo de este proyecto no se midió). Se creó y probó en una sola máquina, la del autor; las rutas de abajo son las que busca el servidor. Puedes cambiar el Python del entorno (<code>CONDA_PY</code>) y la voz (<code>VOZ_REF</code>) en <code>servidor/.env</code>; la carpeta de ARCKHÉvox no: debe ser exactamente <code>~/projetos/ARCKHÉvox</code>.</p>
   <div class="grid g2">
-    <div class="card"><h3>inemavox</h3><p>Proyecto abierto de voz de INEMA. El servidor usa un solo archivo suyo, <code>whisper_daemon.py</code>, y lo busca en una ruta fija: clona el repositorio exactamente en <code>~/projetos/inemavox</code>, con ese nombre de carpeta.</p><pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/inemavox</span> ~/projetos/inemavox</pre></div>
+    <div class="card"><h3>ARCKHÉvox</h3><p>Proyecto abierto de voz de ARCKHÉ. El servidor usa un solo archivo suyo, <code>whisper_daemon.py</code>, y lo busca en una ruta fija: clona el repositorio exactamente en <code>~/projetos/ARCKHÉvox</code>, con ese nombre de carpeta.</p><pre><span class="k">git clone</span> <span class="s">https://github.com/linnoff88-dev/ARCKHÉvox</span> ~/projetos/ARCKHÉvox</pre></div>
     <div class="card"><h3>Entorno Python «chatterbox»</h3><p>Un entorno de conda (instala Miniconda antes: es el administrador de entornos de Python) con torch, Whisper y Chatterbox. El servidor busca Python en <code>~/miniconda3/envs/chatterbox/bin/python3</code>; si está en otro lugar, pon <code>CONDA_PY=&lt;ruta&gt;</code> en <code>servidor/.env</code>. El repositorio no incluye instrucciones listas para usar: los comandos de abajo instalan los paquetes que importan ambos servicios y descargan los modelos antes (varios GB), pero no se probaron en una máquina limpia.</p><pre><span class="k">conda create</span> -n chatterbox python=3.11 -y
 <span class="k">conda run</span> -n chatterbox pip install chatterbox-tts openai-whisper soundfile
 <span class="c"># descarga los modelos antes (el servidor espera como máximo 120 s a que cada uno inicie)</span>
@@ -337,7 +337,7 @@ VOZ_REF=<span class="s">~/ruta/a/tu-voz.wav</span></pre></div>
   <div class="step"><div class="b">1</div><div>
     <h3>Descargar el proyecto</h3>
     <p>Todo queda en la carpeta del repositorio.</p>
-<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/robo-cores3-lite</span>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/linnoff88-dev/robo-cores3-lite</span>
 <span class="k">cd</span> robo-cores3-lite</pre>
   </div></div>
 
@@ -389,7 +389,7 @@ VOZ_REF=<span class="s">~/ruta/a/tu-voz.wav</span></pre></div>
 <section id="numeros"><div class="wrap">
   <span class="chip">Números</span>
   <h2>Tiempos medidos el 15/11/2026</h2>
-  <p class="sub">En segundos, en el cerebro local, con la grabación de prueba. stt = transcripción, llm = Claude, tts = voz; «caliente» = modelos ya cargados, «fría» = modelos fuera de la memoria. Tabla completa en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/servidor/MEDIDAS.md" target="_blank" rel="noopener">servidor/MEDIDAS.md</a> (en portugués).</p>
+  <p class="sub">En segundos, en el cerebro local, con la grabación de prueba. stt = transcripción, llm = Claude, tts = voz; «caliente» = modelos ya cargados, «fría» = modelos fuera de la memoria. Tabla completa en <a href="https://github.com/linnoff88-dev/robo-cores3-lite/blob/main/servidor/MEDIDAS.md" target="_blank" rel="noopener">servidor/MEDIDAS.md</a> (en portugués).</p>
   <div class="tbl"><table>
     <thead><tr><th>Prueba</th><th>Foto</th><th>stt</th><th>llm</th><th>tts</th><th>Total</th><th>1.er sonido</th></tr></thead>
     <tbody>
@@ -409,7 +409,7 @@ VOZ_REF=<span class="s">~/ruta/a/tu-voz.wav</span></pre></div>
 <section id="roadmap"><div class="wrap">
   <span class="chip">Hoja de ruta</span>
   <h2>Las fases, cada una con criterios de finalización</h2>
-  <p class="sub">El plan completo, con el comando que verifica cada criterio, está en <a href="https://github.com/inematds/robo-cores3-lite/blob/main/PLANO.md" target="_blank" rel="noopener">PLANO.md</a> (en portugués).</p>
+  <p class="sub">El plan completo, con el comando que verifica cada criterio, está en <a href="https://github.com/linnoff88-dev/robo-cores3-lite/blob/main/PLANO.md" target="_blank" rel="noopener">PLANO.md</a> (en portugués).</p>
   <div class="phase"><div class="tag">F0</div><div class="d"><strong>Comprar la placa</strong><span>En curso: la CoreS3 Lite todavía no llegó.</span></div></div>
   <div class="phase"><div class="tag">F1 ✓</div><div class="d"><strong>El servidor local responde, con y sin foto</strong><span>Lista el 15/11/2026: se aprobaron los 10 criterios.</span></div></div>
   <div class="phase"><div class="tag">F1b ✓</div><div class="d"><strong>Hacer más llevadera la espera</strong><span>Listo: respuesta por partes, calentamiento al tocar la pantalla y 32 frases para ganar tiempo sin repetir.</span></div></div>
@@ -426,8 +426,8 @@ VOZ_REF=<span class="s">~/ruta/a/tu-voz.wav</span></pre></div>
   <div class="wrap">
     <div class="pill">M5Stack CoreS3 Lite</div><div class="pill">ESP32-S3 · Arduino</div><div class="pill">Python · Whisper</div><div class="pill">claude -p (suscripción)</div><div class="pill">Chatterbox</div>
     <p style="margin-top:18px">Robot CoreS3 Lite · proyecto abierto de investigación y educación ·
-      <a href="https://github.com/inematds/robo-cores3-lite">inematds/robo-cores3-lite</a> ·
-      <a href="https://inema.club">INEMA.CLUB</a></p>
+      <a href="https://github.com/linnoff88-dev/robo-cores3-lite">linnoff88-dev/robo-cores3-lite</a> ·
+      <a href="https://ARCKHÉ AI">ARCKHÉ AI</a></p>
   </div>
 </footer>
 

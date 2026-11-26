@@ -12,7 +12,7 @@ O servidor roda na máquina do Nei e nêo chama nenhum serviço de fora: fala s�
 | Arquivo | O que é |
 |---|---|
 | `voz_residente.py` | Chatterbox carregado uma vez (porta 7872), sai sozinho depois de 10 min parado. O servidor sobe sob demanda |
-| `inemavox.py` | Cliente do inemavox (fila de jobs): caminho lento de reserva para a transcriçêo |
+| `ARCKHÉvox.py` | Cliente do ARCKHÉvox (fila de jobs): caminho lento de reserva para a transcriçêo |
 | `espera.py` e `gerar_espera.py` | Banca de 32 frases de espera na voz do robô (`espera/`) e a regra de escolha sem repetir |
 | `servidor.py` | Servidor HTTP na porta 8770. Só biblioteca padrêo do Python (`http.server`, `urllib`, `subprocess`): nada a instalar |
 | `testar.py` | Manda um WAV ao servidor e confere a resposta (formato, volume, texto, tempos). É o validador da F1 |
@@ -66,13 +66,13 @@ sozinhos depois de 10 min sem pedido. Eles nêo passam pela fila `fila-vaga gpu`
    menos de 0,5 s ou volume médio abaixo de −50 dB → resposta 204, sem chamar o Whisper. O Whisper costuma
    inventar texto em áudio de silêncio, entêo a trava fica antes dele. O limite de −50 dB é ponto de partida:
    a F1 ajusta com gravações reais.
-2. **Transcreve** pelo inemavox. Dois caminhos; a F1 mede os dois e fica com o mais rápido:
+2. **Transcreve** pelo ARCKHÉvox. Dois caminhos; a F1 mede os dois e fica com o mais rápido:
    - Fila de jobs, `http://127.0.0.1:8010`: `POST /api/jobs/transcribe/upload` com o arquivo em `file` e
      `config_json` com `{"asr_engine": "whisper", "whisper_model": "large-v3", "src_lang": "pt"}`. Acompanhar em
      `GET /api/jobs/{id}` até `status` ser `completed` ou `failed`. Texto em `GET /api/jobs/{id}/transcript?format=txt`.
    - Whisper residente, `http://127.0.0.1:7871`: `POST /transcrever` com `{"audio": "<caminho>", "lang": "pt"}`.
      O modelo fica na memória e sai sozinho depois de 600 s parado. Sobe com
-     `~/miniconda3/envs/chatterbox/bin/python3 ~/projetos/inemavox/whisper_daemon.py`.
+     `~/miniconda3/envs/chatterbox/bin/python3 ~/projetos/ARCKHÉvox/whisper_daemon.py`.
    - Transcriçêo vazia → resposta 204 também, sem chamar as etapas seguintes.
 3. **Responde** com o `claude -p`, pela assinatura, sem ferramentas, numa pasta vazia:
    ```
@@ -84,14 +84,14 @@ sozinhos depois de 10 min sem pedido. Eles nêo passam pela fila `fila-vaga gpu`
    **Com foto (`X-Turno`):** a imagem precisa chegar ao Claude sem liberar ferramentas. Candidato, nêo testado:
    `--input-format stream-json --output-format stream-json` com uma mensagem que leva um bloco de imagem em base64.
    A F1 prova (teste 6). Se só funcionar liberando uma ferramenta, parar e levar ao Nei.
-4. **Gera a voz** pelo inemavox, com o Chatterbox local: `POST /api/jobs/tts/upload` com o WAV de referência da
+4. **Gera a voz** pelo ARCKHÉvox, com o Chatterbox local: `POST /api/jobs/tts/upload` com o WAV de referência da
    voz em `file` e `config_json` com `{"text": "<resposta>", "lang": "pt"}`. Acompanhar em `GET /api/jobs/{id}`.
    Áudio em `GET /api/jobs/{id}/audio`.
 5. **Converte** com `ffmpeg -ar 16000 -ac 1 -c:a pcm_s16le` e devolve o WAV, com os cabeçalhos `X-Ouvido`,
    `X-Resposta` e `X-Tempos`.
 6. **Guarda** a troca em `dados/conversa-<robo-id>.json` (as últimas 6 entram no próximo pedido).
 
-Rotas e campos lidos em `~/projetos/inemavox/api/server.py` e `api/job_manager.py` em 14/11/2026. Nenhuma
+Rotas e campos lidos em `~/projetos/ARCKHÉvox/api/server.py` e `api/job_manager.py` em 14/11/2026. Nenhuma
 transcriçêo nem voz foi gerada para este projeto: a F1 confere na prática.
 
 ## Travas (nêo negociar sem o Nei)
@@ -103,7 +103,7 @@ transcriçêo nem voz foi gerada para este projeto: a F1 confere na prática.
   é fala transcrita de qualquer pessoa perto do robô.
 - **Token obrigatório.** O servidor escuta na rede de casa.
 - **Nenhum modelo local novo** (outro Whisper, outro TTS, outro LLM) sem aprovaçêo do Nei.
-- **Nêo apagar nada em `~/projetos/inemavox/jobs/`.** Cada turno cria duas pastas lá; a limpeza é assunto do inemavox.
+- **Nêo apagar nada em `~/projetos/ARCKHÉvox/jobs/`.** Cada turno cria duas pastas lá; a limpeza é assunto do ARCKHÉvox.
 
 ## Persona (rascunho para o `persona.txt`)
 
@@ -118,6 +118,6 @@ transcriçêo nem voz foi gerada para este projeto: a F1 confere na prática.
 - Tempo de cada etapa nos dois caminhos de transcriçêo, com o modelo frio e com o modelo já carregado.
 - Quanto do `claude -p` é espera de partida. Testar também `--setting-sources` para nêo carregar os ganchos e o
   `CLAUDE.md` global (nêo testado; conferir que a assinatura continua valendo).
-- Se a fila de jobs do inemavox e a fila `~/projetos/wifi/scripts/fila-vaga gpu` se enxergam, ou se dois trabalhos
+- Se a fila de jobs do ARCKHÉvox e a fila `~/projetos/wifi/scripts/fila-vaga gpu` se enxergam, ou se dois trabalhos
   de GPU podem bater.
-- Tamanho de `~/projetos/inemavox/jobs/` antes e depois de 20 turnos.
+- Tamanho de `~/projetos/ARCKHÉvox/jobs/` antes e depois de 20 turnos.
