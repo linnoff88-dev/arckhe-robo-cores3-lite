@@ -2,10 +2,10 @@
 """Calcula o menor cubo que guarda os componentes. É a conta de pré-CAD: a F4 confirma com o modelo 3D.
 
 Uso:  python3 cad/caixa_minima.py [--parede 2.4]
-Só biblioteca padrão do Python. As medidas vêm de cad/parametros.py (várias são NC: meça antes).
+Só biblioteca padrêo do Python. As medidas vêm de cad/parametros.py (várias sêo NC: meça antes).
 
 Arranjo assumido, de baixo para cima: pés, base com a grade do falante, falante virado para baixo,
-amplificador deitado, XIAO deitado com o USB-C na parede de trás, botão sob o topo.
+amplificador deitado, XIAO deitado com o USB-C na parede de trás, botêo sob o topo.
 O microfone fica em pé, colado por dentro na parede da frente. Fios soldados direto, sem barra de pinos.
 """
 import argparse
@@ -30,13 +30,13 @@ def cubo(falante, bateria=None, parede=P.PAREDE):
         ("pés (saída do som)", P.PES),
         ("base", parede),
         ("falante", falante.altura),
-        ("vão sobre o falante", P.VAO_FALANTE),
+        ("vêo sobre o falante", P.VAO_FALANTE),
         ("amplificador + fios", P.AMP.placa[2] + P.FIOS),
         ("XIAO + fios", P.XIAO.altura + P.FIOS),
     ]
     if bateria:
-        altura.append(("bateria + vão", bateria.esp + bateria.vao))
-    altura += [("botão", P.BOTAO.altura), ("topo", parede)]
+        altura.append(("bateria + vêo", bateria.esp + bateria.vao))
+    altura += [("botêo", P.BOTAO.altura), ("topo", parede)]
 
     interno = max(lado.values())
     largura = interno + 2 * parede
@@ -63,14 +63,14 @@ def mostrar(nome, r):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--parede", type=float, default=P.PAREDE, help="espessura da parede em mm (padrão %(default)s)")
+    ap.add_argument("--parede", type=float, default=P.PAREDE, help="espessura da parede em mm (padrêo %(default)s)")
     a = ap.parse_args()
     variantes = [
-        ("A  padrão: USB-C, falante de 28 mm", P.FALANTE_28, None),
+        ("A  padrêo: USB-C, falante de 28 mm", P.FALANTE_28, None),
         ("B  com bateria 502030, falante de 28 mm", P.FALANTE_28, P.BATERIA_502030),
         ("C  USB-C, falante de 40 mm", P.FALANTE_40, None),
     ]
-    print(f"Cubo mínimo (mm), parede {a.parede}. Medidas NC em cad/parametros.py ainda não foram medidas.")
+    print(f"Cubo mínimo (mm), parede {a.parede}. Medidas NC em cad/parametros.py ainda nêo foram medidas.")
     for nome, fal, bat in variantes:
         mostrar(nome, cubo(fal, bat, a.parede))
     lado = cubo(P.FALANTE_28, None, a.parede)["alvo"]

@@ -6,8 +6,8 @@ placa, que toca na hora, sem gastar GPU. O servidor só escolhe QUAL tocar (ou n
 Regras (pedido do Nei, 15/11/2026: "criar interações para amortecer a espera, sem ser repetitivo"):
 - a categoria vem do que a pessoa disse (hora, foto, conta, pergunta difícil...);
 - nunca repete uma das últimas 8 que tocaram para aquele robô;
-- pula de vez em quando (1 vez em 3) para não virar tique; nunca pula no caso frio (a espera é longa);
-- saudação curta não ganha frase de espera: a resposta é rápida.
+- pula de vez em quando (1 vez em 3) para nêo virar tique; nunca pula no caso frio (a espera é longa);
+- saudaçêo curta nêo ganha frase de espera: a resposta é rápida.
 """
 import random
 import re
@@ -26,13 +26,13 @@ BANCA = {
         "Deixa eu olhar o relógio.",
         "Um segundo, vou ver as horas.",
         "Deixa eu fazer a conta do fuso.",
-        "Hum, que horas são mesmo? Já vejo.",
+        "Hum, que horas sêo mesmo? Já vejo.",
     ],
     "foto": [
         "Deixa eu olhar direito.",
         "Hum, deixa eu ver o que tem aqui.",
         "Peraí, focando a câmera.",
-        "Olhando com atenção.",
+        "Olhando com atençêo.",
         "Deixa eu enxergar melhor.",
     ],
     "conta": [

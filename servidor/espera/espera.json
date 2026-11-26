@@ -51,7 +51,7 @@
  {
   "id": "hora-04",
   "categoria": "hora",
-  "texto": "Hum, que horas são mesmo? Já vejo.",
+  "texto": "Hum, que horas sêo mesmo? Já vejo.",
   "segundos": 3.45,
   "voz": "rachel"
  },
@@ -79,7 +79,7 @@
  {
   "id": "foto-04",
   "categoria": "foto",
-  "texto": "Olhando com atenção.",
+  "texto": "Olhando com atençêo.",
   "segundos": 3.4,
   "voz": "rachel"
  },

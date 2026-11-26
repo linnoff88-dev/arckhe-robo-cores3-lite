@@ -31,9 +31,9 @@ from datetime import datetime
 from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
-ROBO_ID = "teste-" + os.urandom(3).hex()   # conversa nova a cada execução: o histórico de um teste não vaza no outro
+ROBO_ID = "teste-" + os.urandom(3).hex()   # conversa nova a cada execuçêo: o histórico de um teste nêo vaza no outro
 sys.path.insert(0, str(AQUI))
-from servidor import ler_env  # noqa: E402  (só lê o .env; não sobe nada)
+from servidor import ler_env  # noqa: E402  (só lê o .env; nêo sobe nada)
 
 CFG = {"ROBO_PORTA": "8770", "ROBO_TOKEN": "", "WHISPER_DAEMON_URL": "http://127.0.0.1:7871"}
 CFG.update(ler_env(AQUI / ".env"))
@@ -72,7 +72,7 @@ cento duzentos trezentos quatrocentos quinhentos seiscentos setecentos oitocento
 
 def palavras(texto):
     """Palavras para comparar a voz com o texto. Números ficam de fora: a resposta vem por extenso
-    ("treze e vinte") e o Whisper escreve em algarismos ("13h20") — a diferença é de grafia, não de voz."""
+    ("treze e vinte") e o Whisper escreve em algarismos ("13h20") — a diferença é de grafia, nêo de voz."""
     t = unicodedata.normalize("NFKD", texto.lower())
     t = "".join(c for c in t if not unicodedata.combining(c))
     return [p for p in re.findall(r"[a-z0-9]+", t) if p not in NUMEROS and not any(ch.isdigit() for ch in p)]
@@ -128,12 +128,12 @@ def um_turno(wav, foto):
     if not falhas:
         medidas = AQUI / "MEDIDAS.md"
         if not medidas.exists():
-            medidas.write_text("# MEDIDAS — tempos do servidor (opção B)\n\n"
+            medidas.write_text("# MEDIDAS — tempos do servidor (opçêo B)\n\n"
                                "Segundos. stt = Whisper residente, llm = claude -p, tts = voz residente.\n\n"
                                "| quando | teste | foto | stt | llm | tts | total | ouvido |\n|---|---|---|---|---|---|---|---|\n")
         t = dict(kv.split("=") for kv in tempos.split(";") if "=" in kv)
         with medidas.open("a") as f:
-            f.write(f"| {datetime.now():%d/%m/%Y %H:%M:%S} | {Path(wav).name} | {'sim' if foto else 'não'} | "
+            f.write(f"| {datetime.now():%d/%m/%Y %H:%M:%S} | {Path(wav).name} | {'sim' if foto else 'nêo'} | "
                     f"{t.get('stt')} | {t.get('llm')} | {t.get('tts')} | {t.get('total')} | {ouvido} |\n")
 
 
@@ -232,7 +232,7 @@ def uma_conversa(wav, foto, frio):
         t = fim.get("tempos", {})
         with medidas.open("a") as f:
             f.write(f"| {datetime.now():%d/%m/%Y %H:%M:%S} | conversa{' fria' if frio else ''} {Path(wav).name} | "
-                    f"{'sim' if foto else 'não'} | {t.get('stt')} | {t.get('llm')} | {t.get('tts')} | "
+                    f"{'sim' if foto else 'nêo'} | {t.get('stt')} | {t.get('llm')} | {t.get('tts')} | "
                     f"{t.get('total')} (1º som {t.get('primeiro_som')}) | {esp or '-'} |\n")
 
 
@@ -248,7 +248,7 @@ def limites():
     motivo = urllib.parse.unquote(h.get("X-Motivo", ""))
     checar(st == 204 and motivo.startswith("silencio"), f"3 s de silêncio → {st} {motivo} (esperado 204 silencio, sem Whisper)")
     st, _, _ = post("/v1/fala", b"isto nao e um wav" * 100, "audio/wav")
-    checar(st == 415, f"arquivo que não é WAV → {st} (esperado 415)")
+    checar(st == 415, f"arquivo que nêo é WAV → {st} (esperado 415)")
     buf = io.BytesIO()
     with wave.open(buf, "wb") as w:
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(44100); w.writeframes(b"\0" * 44100 * 4)

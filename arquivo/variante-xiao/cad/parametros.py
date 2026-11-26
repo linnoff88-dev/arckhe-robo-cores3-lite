@@ -1,9 +1,9 @@
 """Medidas do robô, em mm. Fonte única: DEFINICAO.md e LISTA-DE-COMPRAS.md citam estes números.
 
 Fonte de cada medida:
-  "P"  = página ou ficha do fabricante, lida em 14/11/2026 (URLs na DEFINICAO.md, seção Fontes)
+  "P"  = página ou ficha do fabricante, lida em 14/11/2026 (URLs na DEFINICAO.md, seçêo Fontes)
   "T"  = loja ou terceiro
-  "NC" = não confirmado em fonte lida. É o valor usual de mercado: MEÇA a sua peça com paquímetro
+  "NC" = nêo confirmado em fonte lida. É o valor usual de mercado: MEÇA a sua peça com paquímetro
          e corrija aqui antes de desenhar ou imprimir a parte que encosta nela.
 
 Na F4 (caixa), as seções IMPRESSORA, FOLGAS e IMPRESSAO_LIMITES do robos-impressos entram neste arquivo
@@ -16,8 +16,8 @@ PAREDE = 2.0          # parede mínima do projeto (mesma regra do robos-impresso
 FOLGA = 0.5           # folga por lado entre componente e plástico
 FIOS = 3.0            # NC: altura reservada para solda e fio dobrado sobre cada placa
 ANEL_FALANTE = 1.2    # largura do anel impresso que segura o falante pela borda
-VAO_FALANTE = 1.5     # vão entre o fundo do falante e a primeira placa (ímã não encosta em solda)
-PES = 3.0             # altura dos pés: o som sai por baixo, pelo vão entre a base e a mesa
+VAO_FALANTE = 1.5     # vêo entre o fundo do falante e a primeira placa (ímê nêo encosta em solda)
+PES = 3.0             # altura dos pés: o som sai por baixo, pelo vêo entre a base e a mesa
 MARGEM_NC = 2.5       # margem somada ao mínimo calculado enquanto houver medida NC
 
 # ---------------------------------------------------------------- componentes
@@ -28,7 +28,7 @@ XIAO = NS(                                # Seeed Studio XIAO ESP32S3 (sem "Sens
     psram_mb=8, flash_mb=8,               # P
 )
 ANTENA = NS(                              # antena flexível que vem com o XIAO (conector U.FL)
-    tamanho=(40.0, 8.0),                  # NC: não lido em fonte; cola numa parede interna
+    tamanho=(40.0, 8.0),                  # NC: nêo lido em fonte; cola numa parede interna
 )
 AMP = NS(                                 # amplificador I2S MAX98357A
     placa=(19.4, 17.8, 3.0),              # P (Adafruit 3006). Módulo genérico: NC, meça
@@ -42,8 +42,8 @@ FALANTE_28 = NS(d=28.0, altura=10.0)      # T (diâmetro do anúncio) / NC (altu
 FALANTE_40 = NS(d=40.0, altura=20.0)      # T (diâmetro do anúncio) / NC (altura): 4 ohms, 3 W
 BOTAO = NS(corpo=(6.0, 6.0), altura=5.0)  # T (nome do anúncio "6x6x5") / NC
 BATERIA_502030 = NS(                      # LiPo 1S 3,7 V ~250 mAh. Opcional, fora da fase 1
-    esp=5.0, larg=20.0, comp=30.0,        # NC: lido do código do modelo (50-20-30), não de uma ficha
-    vao=1.5,                              # espaço para a bateria não ser apertada
+    esp=5.0, larg=20.0, comp=30.0,        # NC: lido do código do modelo (50-20-30), nêo de uma ficha
+    vao=1.5,                              # espaço para a bateria nêo ser apertada
 )
 PLUGUE_USB_C = NS(
     corpo=(12.5, 7.0),                    # NC: corpo plástico do plugue do cabo (rebaixo na parede)

@@ -2,9 +2,9 @@
 """Voz residente do robô: Chatterbox carregado UMA vez, atende frases curtas.
 
 O inemavox carrega o Chatterbox a cada pedido (14 a 28 s por frase, medido em 15/11/2026). Aqui o modelo fica na
-memória e o processo sai sozinho depois de OCIOSO segundos parado, para liberar a GPU (mesmo padrão do
+memória e o processo sai sozinho depois de OCIOSO segundos parado, para liberar a GPU (mesmo padrêo do
 ~/projetos/inemavox/whisper_daemon.py). Mesmo modelo e mesmos parâmetros do chatterbox_tts_worker.py do inemavox:
-não é modelo novo. Só escuta em 127.0.0.1.
+nêo é modelo novo. Só escuta em 127.0.0.1.
 
 Roda no ambiente conda do inemavox:
   ~/miniconda3/envs/chatterbox/bin/python3 servidor/voz_residente.py [--porta 7872] [--ocioso 600]
@@ -56,7 +56,7 @@ def falar(texto, ref, saida, lang):
     if len(re.findall(r"[A-Za-z0-9À-ɏ]", texto)) < 3:
         raise ValueError("texto curto demais")
     if not os.path.isfile(ref):
-        raise ValueError(f"ref não existe: {ref}")
+        raise ValueError(f"ref nêo existe: {ref}")
     lang = lang.lower().replace("-", "_").split("_")[0]
     wav = modelo.generate(texto, language_id=lang, audio_prompt_path=ref, exaggeration=args.exaggeration,
                           cfg_weight=args.cfg_weight, temperature=args.temperature)

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Servidor do robo-cores3-lite, opção B: ouve, pensa e fala, tudo nesta máquina.
+"""Servidor do robo-cores3-lite, opçêo B: ouve, pensa e fala, tudo nesta máquina.
 
   python3 servidor/servidor.py
 
 Um turno: WAV do robô → trava de silêncio → Whisper residente (inemavox) → claude -p pela assinatura, sem
 ferramentas (com a foto, se veio) → voz residente (Chatterbox) → WAV 16 kHz mono 16 bits de volta.
-Só biblioteca padrão. Só chama serviços em 127.0.0.1. Protocolo: DEFINICAO.md, seção 11.
+Só biblioteca padrêo. Só chama serviços em 127.0.0.1. Protocolo: DEFINICAO.md, seçêo 11.
 """
 import base64
 import hmac
@@ -207,7 +207,7 @@ def guardar_historico(robo, ouvido, resposta):
 class ClaudePronto:
     """Um `claude -p` já aberto esperando a próxima pergunta: a partida do processo sai da espera (~1,2 s).
 
-    Sempre pela assinatura (sem ANTHROPIC_API_KEY), sem ferramentas, sem MCP, sem sessão salva, numa pasta vazia.
+    Sempre pela assinatura (sem ANTHROPIC_API_KEY), sem ferramentas, sem MCP, sem sessêo salva, numa pasta vazia.
     """
     def __init__(self):
         self.trava = threading.Lock()
@@ -320,13 +320,13 @@ def limpar_fala(texto):
 
 NUMEROS = set("""zero um uma dois duas tres três quatro cinco seis sete oito nove dez onze doze treze catorze quatorze
 quinze dezesseis dezessete dezoito dezenove vinte trinta quarenta cinquenta sessenta setenta oitenta noventa cem cento
-duzentos trezentos quatrocentos quinhentos seiscentos setecentos oitocentos novecentos mil milhao milhão milhoes milhões
+duzentos trezentos quatrocentos quinhentos seiscentos setecentos oitocentos novecentos mil milhao milhêo milhoes milhões
 meia meio""".split())
 NAO_CORTAR = NUMEROS | {"e", "de", "da", "do", "das", "dos", "a", "o", "as", "os", "um", "uma", "em", "no", "na"}
 
 
 def _corte_seguro(frase, depois_de):
-    """Primeiro espaço depois de `depois_de` que não fica no meio de um número nem antes de artigo/preposição."""
+    """Primeiro espaço depois de `depois_de` que nêo fica no meio de um número nem antes de artigo/preposiçêo."""
     palavras = frase.split(" ")
     pos = 0
     for i, p in enumerate(palavras[:-1]):
@@ -344,7 +344,7 @@ def partes(texto, minimo=30):
     """Divide a resposta em frases para a voz começar pela primeira. Frase curta junta com a seguinte."""
     pedacos = [p.strip() for p in re.split(r"(?<=[.!?…])\s+", texto) if p.strip()]
     # A primeira parte decide quando sai o primeiro som: se for longa, corta na primeira vírgula.
-    # Ordem: vírgula/dois-pontos/ponto e vírgula entre o 10º e o 60º caractere; senão, o espaço depois do 35º.
+    # Ordem: vírgula/dois-pontos/ponto e vírgula entre o 10º e o 60º caractere; senêo, o espaço depois do 35º.
     if pedacos and len(pedacos[0]) > 50:
         m = re.search(r"[,:;]\s", pedacos[0][10:60])
         corte = 10 + m.end() if m else None
@@ -517,7 +517,7 @@ class Robo(BaseHTTPRequestHandler):
     def _corpo(self, limite):
         tamanho = int(self.headers.get("Content-Length") or 0)
         if tamanho > limite:
-            # lê e descarta para não deixar o cliente pendurado
+            # lê e descarta para nêo deixar o cliente pendurado
             restante = tamanho
             while restante > 0:
                 bloco = self.rfile.read(min(65536, restante))

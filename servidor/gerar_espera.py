@@ -7,7 +7,7 @@
 Frase com mais de 4 s é regravada (até 3 tentativas): é a voz inventando fala.
 
 Saída: servidor/espera/<id>.wav (16 kHz, mono, 16 bits) e servidor/espera/espera.json (id, categoria, texto, voz,
-duração). Usa a voz residente (servidor/voz_residente.py), que sobe se não estiver no ar.
+duraçêo). Usa a voz residente (servidor/voz_residente.py), que sobe se nêo estiver no ar.
 """
 import argparse
 import json

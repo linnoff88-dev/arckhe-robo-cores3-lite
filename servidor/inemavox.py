@@ -1,4 +1,4 @@
-"""Cliente mínimo do inemavox local (só biblioteca padrão).
+"""Cliente mínimo do inemavox local (só biblioteca padrêo).
 
 Só fala com 127.0.0.1. Voz só pela rota /api/jobs/tts/upload, que força o Chatterbox local:
 a rota /api/jobs/tts sem "engine" cai no Edge (serviço online) e é proibida neste projeto.
